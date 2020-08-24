@@ -1,0 +1,20 @@
+stages:
+  - build
+
+variables:
+  BUILD_FOLDER: web/build/
+
+assets_build:
+  stage: build
+  before_script:
+    - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
+  artifacts:
+    paths:
+      - $BUILD_FOLDER
+  script:
+    - 'echo Node version: $NPM_NODE_VERSION'
+    - 'nvm install $NPM_NODE_VERSION'
+    - 'nvm use $NPM_NODE_VERSION'
+    - 'npm install webpack-cli -g'
+    - 'npm ci --cache .npm --prefer-offline'
+    - "NODE_ENV=prod ./node_modules/.bin/webpack -p --config webpack/webpack.config.js"
