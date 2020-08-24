@@ -1,0 +1,13 @@
+deploy_staging:
+  stage: deploy
+  script:
+    - 'dep deploy staging --branch=$CI_COMMIT_REF_NAME'
+  when: manual
+  environment: staging
+
+deploy_production:
+  stage: deploy
+  script:
+    - 'dep deploy production --branch=$CI_COMMIT_REF_NAME'
+  when: manual
+  environment: production

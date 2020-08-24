@@ -1,5 +1,5 @@
 variables:
-  BUILD_FOLDER: web/build/
+  BUILD_FOLDER: public/build/
 
 assets_build:
   stage: build

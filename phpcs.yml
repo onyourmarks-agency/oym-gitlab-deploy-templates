@@ -1,0 +1,4 @@
+phpcs:
+  stage: test
+  script:
+    - 'phpcs --error-severity=1 --warning-severity=8 --extensions=php'

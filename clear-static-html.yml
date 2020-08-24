@@ -1,0 +1,19 @@
+variables:
+  SSH_STAGING: null
+  SSH_PRODUCTION: null
+  SERVER_FOLDER_STAGING: null
+  SERVER_FOLDER_PRODUCTION: null
+
+clear_html_staging:
+    stage: cache
+    script:
+        - '/bin/ssh $SERVER_STAGING "sudo -u apache /usr/bin/php -f /home/tde/domains/$SERVER_PATH_STAGING/current/craft cacheable/clear/html"'
+    when: manual
+    environment: staging
+
+clear_html_production:
+    stage: cache
+    script:
+        - '/bin/ssh $SSH_PRODUCTION "sudo -u apache /usr/bin/php -f /home/tde/domains/$SERVER_PATH_PRODUCTION/current/craft cacheable/clear/html"'
+    when: manual
+    environment: production

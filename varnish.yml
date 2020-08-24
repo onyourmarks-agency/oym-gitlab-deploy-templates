@@ -1,0 +1,13 @@
+clear_varnish_staging:
+    stage: cache
+    script:
+        - '/bin/bash clear-varnish.sh staging'
+    when: manual
+    environment: staging
+
+clear_varnish_production:
+    stage: cache
+    script:
+        - '/bin/bash clear-varnish.sh production'
+    when: manual
+    environment: production
