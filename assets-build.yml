@@ -12,6 +12,6 @@ assets_build:
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
     - 'nvm use $NPM_NODE_VERSION'
-    - 'npm install webpack-cli -g'
-    - 'npm ci --cache .npm --prefer-offline'
+    - 'yarn global add webpack-cli'
+    - 'yarn install --frozen-lockfile --cache-folder .yarn-cache --prefer-offline'
     - "NODE_ENV=prod ./node_modules/.bin/webpack -p --config webpack/webpack.config.js"
