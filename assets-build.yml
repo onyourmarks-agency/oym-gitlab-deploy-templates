@@ -8,6 +8,7 @@ assets_build:
   artifacts:
     paths:
       - $BUILD_FOLDER
+      - node_modules/
   script:
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
