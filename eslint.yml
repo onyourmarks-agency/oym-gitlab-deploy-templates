@@ -5,4 +5,3 @@ eslint:
   stage: test
   script:
     - './node_modules/.bin/eslint $ASSET_FOLDER'
-  allow_failure: true
