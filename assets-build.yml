@@ -13,6 +13,6 @@ assets_build:
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
     - 'nvm use $NPM_NODE_VERSION'
-    - 'yarn global add webpack-cli#^4.0'
+    - 'yarn global add webpack-cli#^3.3.*'
     - 'yarn install --frozen-lockfile --cache-folder .yarn-cache --prefer-offline'
     - "NODE_ENV=prod ./node_modules/.bin/webpack -p --config webpack/webpack.config.js"
