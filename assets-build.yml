@@ -14,6 +14,7 @@ assets_build:
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
     - 'nvm use $NPM_NODE_VERSION'
+    - 'npm install -g pnpm'
     - 'npm config set store-dir /home/gitlab-runner/.pnpm-store'
     - 'npm install -g webpack-cli@$WEBPACK_CLI_VERSION.*'
     - 'pnpm set verify-store-integrity false'
