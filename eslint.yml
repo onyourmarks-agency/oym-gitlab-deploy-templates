@@ -1,7 +1,17 @@
 variables:
   ASSET_FOLDER: assets
+  WEBPACK_CLI_VERSION: 3.3
 
 eslint:
   stage: test
+  before_script:
+    - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
   script:
-    - './node_modules/.bin/eslint $ASSET_FOLDER'
+    - 'echo Node version: $NPM_NODE_VERSION'
+    - 'nvm install $NPM_NODE_VERSION'
+    - 'nvm use $NPM_NODE_VERSION'
+    - 'npm config set store-dir /home/gitlab-runner/.pnpm-store'
+    - 'npm install -g eslint
+    - 'pnpm set verify-store-integrity false'
+    - 'pnpm config set store-dir ~/.pnpm-store'
+    - 'eslint $ASSET_FOLDER'
