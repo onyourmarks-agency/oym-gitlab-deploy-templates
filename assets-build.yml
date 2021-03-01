@@ -7,10 +7,6 @@ assets_build:
   stage: build
   before_script:
     - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
-  artifacts:
-    paths:
-      - $BUILD_FOLDER
-  script:
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
     - 'nvm use $NPM_NODE_VERSION'
@@ -19,5 +15,9 @@ assets_build:
     - 'pnpm set verify-store-integrity false'
     - 'pnpm config set store-dir ~/.pnpm-store'
     - 'pnpm install --frozen-lockfile'
+  artifacts:
+    paths:
+      - $BUILD_FOLDER
+  script:
     - 'eslint $ASSET_FOLDER'
     - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"
