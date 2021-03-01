@@ -1,6 +1,6 @@
 variables:
   ASSET_FOLDER: assets
-  WEBPACK_CLI_VERSION: 3.3
+  WEBPACK_CLI_VERSION: '4.5'
 
 eslint:
   stage: test
