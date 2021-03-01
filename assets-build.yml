@@ -1,5 +1,6 @@
 variables:
   BUILD_FOLDER: public/build/
+  WEBPACK_CLI_VERSION: 3.3
 
 assets_build:
   stage: build
@@ -8,11 +9,13 @@ assets_build:
   artifacts:
     paths:
       - $BUILD_FOLDER
-      - node_modules/
   script:
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
     - 'nvm use $NPM_NODE_VERSION'
-    - 'yarn global add webpack-cli@3.3.*'
-    - 'yarn install --frozen-lockfile --cache-folder .yarn-cache --prefer-offline'
+    - 'npm config set store-dir /home/gitlab-runner/.pnpm-store'
+    - 'npm install -g webpack-cli@$WEBPACK_CLI_VERSION.*'
+    - 'pnpm set verify-store-integrity false'
+    - 'pnpm config set store-dir ~/.pnpm-store'
+    - 'pnpm install --frozen-lockfile'
     - "NODE_ENV=prod ./node_modules/.bin/webpack -p --config webpack/webpack.config.js"
