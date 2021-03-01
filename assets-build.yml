@@ -1,6 +1,7 @@
 variables:
   BUILD_FOLDER: public/build/
   WEBPACK_CLI_VERSION: '4.5'
+  ASSET_FOLDER: assets
 
 assets_build:
   stage: build
@@ -18,4 +19,5 @@ assets_build:
     - 'pnpm set verify-store-integrity false'
     - 'pnpm config set store-dir ~/.pnpm-store'
     - 'pnpm install --frozen-lockfile'
+    - 'eslint $ASSET_FOLDER'
     - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"
