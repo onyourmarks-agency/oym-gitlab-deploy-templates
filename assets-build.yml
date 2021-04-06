@@ -1,6 +1,7 @@
 variables:
   BUILD_FOLDER: public/build/
   WEBPACK_CLI_VERSION: '4.5'
+  PNPM_VERSION: '5.18'
   ASSET_FOLDER: assets
 
 assets_build:
@@ -10,7 +11,7 @@ assets_build:
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
     - 'nvm use $NPM_NODE_VERSION'
-    - 'npm install -g pnpm eslint webpack-cli@$WEBPACK_CLI_VERSION.*'
+    - 'npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*'
     - 'npm config set store-dir /home/gitlab-runner/.pnpm-store'
     - 'pnpm set verify-store-integrity false'
     - 'pnpm config set store-dir ~/.pnpm-store'
