@@ -1,7 +1,7 @@
 variables:
   BUILD_FOLDER: public/build/
   WEBPACK_CLI_VERSION: '4.5'
-  PNPM_VERSION: '6.7
+  PNPM_VERSION: '6.7'
 
 assets_build:
   stage: build
