@@ -1,9 +1,7 @@
 variables:
   BUILD_FOLDER: public/build/
   WEBPACK_CLI_VERSION: '4.5'
-  PNPM_VERSION: '6.7'
-  ASSET_FOLDER: assets
-  ASSET_EXTENSIONS: .js,.svelte,.vue,.jsx
+  PNPM_VERSION: '6.7
 
 assets_build:
   stage: build
@@ -21,5 +19,5 @@ assets_build:
     paths:
       - $BUILD_FOLDER
   script:
-    - 'eslint $ASSET_FOLDER  --ext $ASSET_EXTENSIONS'
+    - 'pnpm eslint'
     - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"
