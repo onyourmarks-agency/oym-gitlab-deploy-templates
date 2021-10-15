@@ -1,7 +1,8 @@
 phpstan:
+  stage: test
   variables:
     GIT_STRATEGY: fetch
-  stage: test
+  allow_failure: true
   needs: 
     - install_composer_dependencies
   dependencies:
