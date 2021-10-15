@@ -4,6 +4,10 @@ variables:
   PNPM_VERSION: '6.7'
 
 assets_build:
+  variables:
+    GIT_STRATEGY: none
+  needs: [ ]
+  dependencies: [ ]
   stage: build
   before_script:
     - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"

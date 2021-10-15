@@ -1,5 +1,8 @@
 install_composer_dependencies:
-  stage: build
+  variables:
+    GIT_STRATEGY: none
+  needs: [ ]
+  dependencies: [ ]
   script:
     - 'phpcs --error-severity=1 --warning-severity=8 --extensions=php'
     - 'composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-suggest --no-scripts'
