@@ -1,4 +1,5 @@
 deploy_staging:
+  stage: deploy
   when: manual
   environment: staging
   variables:
@@ -15,7 +16,9 @@ deploy_staging:
       optional: true
   script:
     - 'dep deploy staging --branch=$CI_COMMIT_REF_NAME'
+
 deploy_production:
+  stage: deploy
   when: manual
   environment: production
   variables:

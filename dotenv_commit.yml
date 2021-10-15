@@ -3,6 +3,7 @@ variables:
   STAGING_ENV_FILE: .env.staging
 
 dotenv_commit:
+  stage: build
   variables:
     GIT_STRATEGY: none
   needs: [ ]

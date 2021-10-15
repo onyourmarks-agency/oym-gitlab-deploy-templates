@@ -7,6 +7,7 @@ variables:
   SERVER_FOLDER_PREFIX_PRODUCTION: /home/tde/domains
 
 clear_json_staging:
+  stage: rewrite
   environment: staging
   when: manual
   variables:
@@ -17,6 +18,7 @@ clear_json_staging:
     - '/bin/ssh $SSH_STAGING "sudo -u apache /usr/bin/php -f $SERVER_FOLDER_PREFIX_STAGING/$SERVER_FOLDER_STAGING/current/craft cacheable/clear/json"'
 
 clear_json_production:
+  stage: rewrite
   environment: production
   when: manual
   variables:

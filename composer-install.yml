@@ -1,4 +1,5 @@
 install_composer_dependencies:
+  stage: build
   variables:
     GIT_STRATEGY: none
   needs: [ ]

@@ -1,4 +1,5 @@
 clear_varnish_staging:
+  stage: varnish
   environment: staging
   when: manual
   variables:
@@ -9,6 +10,7 @@ clear_varnish_staging:
     - '/bin/bash clear-varnish.sh staging'
 
 clear_varnish_production:
+  stage: varnish
   environment: production
   variables:
     GIT_STRATEGY: fetch

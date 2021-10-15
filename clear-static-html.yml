@@ -7,6 +7,7 @@ variables:
   SERVER_FOLDER_PREFIX_PRODUCTION: /home/tde/domains
 
 clear_html_staging:
+  stage: rewrite
   environment: staging
   when: manual
   variables:
@@ -18,6 +19,7 @@ clear_html_staging:
 
 
 clear_html_production:
+  stage: rewrite
   environment: production
   when: manual
   variables:
