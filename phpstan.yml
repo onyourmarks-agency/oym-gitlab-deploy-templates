@@ -1,0 +1,10 @@
+phpstan:
+  variables:
+    GIT_STRATEGY: fetch
+  stage: test
+  needs: 
+    - install_composer_dependencies
+  dependencies:
+    - install_composer_dependencies
+  script:
+    - 'phpstan analyse  --memory-limit=2G'
