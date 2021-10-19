@@ -5,7 +5,7 @@ variables:
 dotenv_commit:
   stage: build
   variables:
-    GIT_STRATEGY: none
+    GIT_STRATEGY: fetch
   needs: [ ]
   dependencies: [ ]
   artifacts:

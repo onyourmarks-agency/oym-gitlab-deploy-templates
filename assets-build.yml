@@ -6,7 +6,7 @@ variables:
 assets_build:
   stage: build
   variables:
-    GIT_STRATEGY: none
+    GIT_STRATEGY: fetch
   needs: [ ]
   dependencies: [ ]
   before_script:
