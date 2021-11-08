@@ -24,4 +24,5 @@ assets_build:
       - $BUILD_FOLDER
   script:
     - 'pnpm eslint'
+    - 'pnpm stylelint'
     - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"
