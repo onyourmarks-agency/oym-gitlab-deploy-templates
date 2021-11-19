@@ -8,10 +8,16 @@
 
 flush_supervisord_production:
   <<: *flush_supervisord_global
+  variables:
+    SSH_SERVER: $SSH_PRODUCTION
+    GIT_STRATEGY: none
   needs:
     - job: deploy_production
 
 flush_supervisord_staging:
   <<: *flush_supervisord_global
+  variables:
+    SSH_SERVER: $SSH_PRODUCTION
+    GIT_STRATEGY: none
   needs:
     - job: deploy_staging
