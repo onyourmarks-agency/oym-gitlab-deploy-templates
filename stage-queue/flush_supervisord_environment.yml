@@ -1,5 +1,6 @@
 .flush_supervisord_template: &flush_supervisord_global
   stage: rewrite
+  resource_group: supervisord
   variables:
     GIT_STRATEGY: none
   script:
