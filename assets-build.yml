@@ -1,0 +1,28 @@
+variables:
+  BUILD_FOLDER: public/build/
+  WEBPACK_CLI_VERSION: '4.5'
+  PNPM_VERSION: '6.7'
+
+assets_build:
+  stage: build
+  variables:
+    GIT_STRATEGY: fetch
+  needs: [ ]
+  dependencies: [ ]
+  before_script:
+    - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
+    - 'echo Node version: $NPM_NODE_VERSION'
+    - 'nvm install $NPM_NODE_VERSION'
+    - 'nvm use $NPM_NODE_VERSION'
+    - 'npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*'
+    - 'npm config set store-dir /home/gitlab-runner/.pnpm-store'
+    - 'pnpm set verify-store-integrity false'
+    - 'pnpm config set store-dir ~/.pnpm-store'
+    - 'pnpm install --frozen-lockfile'
+  artifacts:
+    paths:
+      - $BUILD_FOLDER
+  script:
+    - 'pnpm eslint'
+    - 'pnpm stylelint'
+    - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"

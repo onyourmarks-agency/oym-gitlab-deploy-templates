@@ -1,0 +1,21 @@
+clear_varnish_staging:
+  stage: varnish
+  environment: staging
+  when: manual
+  variables:
+    GIT_STRATEGY: fetch
+  needs: []
+  dependencies: []
+  script:
+    - '/bin/bash clear-varnish.sh staging'
+
+clear_varnish_production:
+  stage: varnish
+  environment: production
+  variables:
+    GIT_STRATEGY: fetch
+  when: manual
+  needs: []
+  dependencies: []
+  script:
+    - '/bin/bash clear-varnish.sh production'

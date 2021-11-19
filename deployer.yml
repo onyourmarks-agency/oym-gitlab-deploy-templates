@@ -1,0 +1,37 @@
+deploy_staging:
+  stage: deploy
+  when: manual
+  environment: staging
+  variables:
+    GIT_STRATEGY: fetch
+  needs:
+    - job: install_composer_dependencies
+      artifacts: true
+      optional: true
+    - job: assets_build
+      artifacts: true
+      optional: true
+    - job: dotenv_commit
+      artifacts: true
+      optional: true
+  script:
+    - 'dep deploy staging --branch=$CI_COMMIT_REF_NAME'
+
+deploy_production:
+  stage: deploy
+  when: manual
+  environment: production
+  variables:
+    GIT_STRATEGY: fetch
+  needs:
+    - job: install_composer_dependencies
+      artifacts: true
+      optional: true
+    - job: assets_build
+      artifacts: true
+      optional: true
+    - job: dotenv_commit
+      artifacts: true
+      optional: true
+  script:
+    - 'dep deploy production --branch=$CI_COMMIT_REF_NAME'
