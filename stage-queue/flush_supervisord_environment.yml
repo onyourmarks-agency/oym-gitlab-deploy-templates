@@ -1,0 +1,16 @@
+.flush_supervisord_template: &flush_supervisord_global
+  stage: rewrite
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - '/bin/ssh $SSH_SERVER "sudo /usr/bin/supervisorctl restart all"'
+
+flush_supervisord_production:
+  <<: *flush_supervisord_global
+  needs:
+    - job: deploy_production
+
+flush_supervisord_staging:
+  <<: *flush_supervisord_global
+  needs:
+    - job: deploy_staging
