@@ -1,0 +1,31 @@
+variables:
+  # Folders
+  BUILD_FOLDER: public/build/
+  VENDOR_FOLDER: vendor
+
+  # Versioning
+  WEBPACK_CLI_VERSION: '4.5'
+  PNPM_VERSION: '6.7'
+
+  # Checker modes
+  PHPCS_MODE: 'strict'
+  PHPSTAN_MODE: 'strict'
+  ESLINT_MODE: 'strict'
+  STYLELINT_MODE: 'strict'
+
+  # Severity tuning
+  PHPCS_ERROR_SEVERITY: 1
+  PHPCS_WARNING_SEVERITY: 8
+
+  # File locations
+  PRODUCTION_ENV_FILE: .env.production
+  STAGING_ENV_FILE: .env.staging
+
+  # Server locations
+  SSH_STAGING: null
+  SSH_PRODUCTION: null
+  SERVER_FOLDER_STAGING: null
+  SERVER_FOLDER_PRODUCTION: null
+  SERVER_FOLDER_PREFIX_STAGING: /home/tde/domains
+  SERVER_FOLDER_PREFIX_PRODUCTION: /home/tde/domains
+

@@ -1,0 +1,30 @@
+assets_build:
+  stage: build
+  variables:
+    GIT_STRATEGY: fetch
+  needs: [ ]
+  before_script:
+    - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
+    - "echo Node version: $NPM_NODE_VERSION"
+    - "nvm install $NPM_NODE_VERSION"
+    - "nvm use $NPM_NODE_VERSION"
+    - "npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*"
+    - "npm config set store-dir /home/gitlab-runner/.pnpm-store"
+    - "pnpm set verify-store-integrity false"
+    - "pnpm config set store-dir ~/.pnpm-store"
+    - "pnpm install --frozen-lockfile"
+  cache:
+    key: asset_build-$CI_COMMIT_REF_NAME-build
+    paths:
+      - $BUILD_FOLDER
+    policy: push
+  script:
+    - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"
+  rules:
+    - if : $CI_COMMIT_MESSAGE =~ /CI_BUILD/
+      when: always
+    - changes:
+        - assets/*
+        - package.json
+        - pnpm-lock.yaml
+        - webpack/*

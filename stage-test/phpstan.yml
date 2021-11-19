@@ -1,0 +1,32 @@
+phpstan:
+  stage: test
+  variables:
+    GIT_STRATEGY: fetch
+  needs:
+    - job: composer_install
+      artifacts: true
+      optional: true
+  script:
+    - 'phpstan analyse  --memory-limit=2G'
+  rules:
+    - if: '$PHPSTAN_MODE == "strict"'
+      changes:
+        - src/*
+        - modules/*
+        - composer.json
+        - composer.lock
+      allow_failure: false
+    - if: '$PHPSTAN_MODE == "relaxed"'
+      changes:
+        - src/*
+        - modules/*
+        - composer.json
+        - composer.lock
+      allow_failure: true
+    - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPSTAN_MODE == "strict"'
+      allow_failure: false
+    - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPSTAN_MODE == "relaxed"'
+      allow_failure: true
+    - if: '$PHPSTAN_MODE == "disabled"'
+      when: never
+

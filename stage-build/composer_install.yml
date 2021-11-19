@@ -1,0 +1,11 @@
+composer_install:
+  stage: build
+  variables:
+    GIT_STRATEGY: fetch
+  needs: [ ]
+  script:
+    - 'composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-suggest --no-scripts'
+  artifacts:
+    name: "composer_install-$CI_COMMIT_REF_NAME-vendor"
+    paths:
+      - $VENDOR_FOLDER
