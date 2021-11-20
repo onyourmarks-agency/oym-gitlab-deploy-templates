@@ -11,22 +11,30 @@ phpstan:
   rules:
     - if: '$PHPSTAN_MODE == "strict"'
       changes:
-        - src/*
-        - modules/*
         - composer.json
         - composer.lock
-      allow_failure: false
+        - modules/*
+        - modules/**
+        - src/*
+        - src/**
+      allow_failure: true
+      when: on_success
     - if: '$PHPSTAN_MODE == "relaxed"'
       changes:
-        - src/*
-        - modules/*
         - composer.json
         - composer.lock
+        - modules/*
+        - modules/**
+        - src/*
+        - src/**
       allow_failure: true
+      when: on_success
     - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPSTAN_MODE == "strict"'
       allow_failure: false
+      when: on_success
     - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPSTAN_MODE == "relaxed"'
       allow_failure: true
+      when: on_success
     - if: '$PHPSTAN_MODE == "disabled"'
       when: never
 
