@@ -11,10 +11,12 @@ phpcs:
   rules:
     - if: '$PHPCS_MODE == "strict"'
       changes:
-        - src/*
-        - modules/*
         - composer.json
         - composer.lock
+        - modules/*
+        - modules/**
+        - src/*
+        - src/**
       allow_failure: false
     - if: '$PHPCS_MODE == "relaxed"'
       changes:
