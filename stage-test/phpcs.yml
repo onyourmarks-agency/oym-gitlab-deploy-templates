@@ -17,7 +17,6 @@ phpcs:
         - modules/**
         - src/*
         - src/**
-      allow_failure: false
     - if: '$PHPCS_MODE == "relaxed"'
       changes:
         - composer.json
@@ -27,10 +26,13 @@ phpcs:
         - src/*
         - src/**
       allow_failure: true
+      when: on_success
     - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPCS_MODE == "strict"'
       allow_failure: false
+      when: on_success
     - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPCS_MODE == "relaxed"'
       allow_failure: true
+      when: on_success
     - if: '$PHPCS_MODE == "disabled"'
       when: never
 
