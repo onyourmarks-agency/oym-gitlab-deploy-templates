@@ -18,10 +18,12 @@ phpcs:
       allow_failure: false
     - if: '$PHPCS_MODE == "relaxed"'
       changes:
-        - src/*
-        - modules/*
         - composer.json
         - composer.lock
+        - modules/*
+        - modules/**
+        - src/*
+        - src/**
       allow_failure: true
     - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPCS_MODE == "strict"'
       allow_failure: false
