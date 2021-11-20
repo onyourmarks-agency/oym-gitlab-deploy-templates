@@ -22,16 +22,20 @@ stylelint:
     - if: '$STYLELINT_MODE == "strict"'
       changes:
         - assets/*
+        - assets/**
         - package.json
         - pnpm-lock.yaml
         - webpack/*
+        - webpack/**
       allow_failure: false
     - if: '$STYLELINT_MODE == "relaxed"'
       changes:
         - assets/*
+        - assets/**
         - package.json
         - pnpm-lock.yaml
         - webpack/*
+        - webpack/**
       allow_failure: true
     - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $STYLELINT_MODE == "strict"'
       allow_failure: false
