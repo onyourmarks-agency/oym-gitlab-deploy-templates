@@ -25,8 +25,8 @@ assets_build:
       when: always
     - changes:
         - assets/*
-        - assets/**
+        - assets/**/*
         - package.json
         - pnpm-lock.yaml
         - webpack/*
-        - webpack/**
+        - webpack/**/*
