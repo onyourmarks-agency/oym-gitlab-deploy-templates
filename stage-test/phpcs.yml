@@ -14,20 +14,17 @@ phpcs:
         - composer.json
         - composer.lock
         - modules/*
-        - modules/**
         - modules/**/*
         - src/*
-        - src/**
         - src/**/*
+      when: on_success
     - if: '$PHPCS_MODE == "relaxed"'
       changes:
         - composer.json
         - composer.lock
         - modules/*
-        - modules/**
         - modules/**/*
         - src/*
-        - src/**
         - src/**/*
       allow_failure: true
       when: on_success

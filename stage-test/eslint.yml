@@ -22,24 +22,28 @@ eslint:
     - if: '$ESLINT_MODE == "strict"'
       changes:
         - assets/*
-        - assets/**
+        - assets/**/*
         - package.json
         - pnpm-lock.yaml
         - webpack/*
-        - webpack/**
+        - webpack/**/*
+      when: on_success
       allow_failure: false
     - if: '$ESLINT_MODE == "relaxed"'
       changes:
         - assets/*
-        - assets/**
+        - assets/**/*
         - package.json
         - pnpm-lock.yaml
         - webpack/*
-        - webpack/**
+        - webpack/**/*
+      when: on_success
       allow_failure: true
     - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $ESLINT_MODE == "strict"'
+      when: on_success
       allow_failure: false
     - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $ESLINT_MODE == "relaxed"'
+      when: on_success
       allow_failure: true
     - if: '$ESLINT_MODE == "disabled"'
       when: never
