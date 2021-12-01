@@ -7,10 +7,6 @@ eslint:
       artifacts: true
       optional: true
   before_script:
-    - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
-    - 'echo Node version: $NPM_NODE_VERSION'
-    - 'nvm install $NPM_NODE_VERSION'
-    - 'nvm use $NPM_NODE_VERSION'
     - 'npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*'
     - 'npm config set store-dir /home/gitlab-runner/.pnpm-store'
     - 'pnpm set verify-store-integrity false'
