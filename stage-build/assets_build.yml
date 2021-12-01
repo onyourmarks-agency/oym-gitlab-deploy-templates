@@ -2,7 +2,7 @@ assets_build:
   stage: build
   variables:
     GIT_STRATEGY: fetch
-  needs: [ ]
+  needs: [ image_build ]
   before_script:
     - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
     - "echo Node version: $NPM_NODE_VERSION"

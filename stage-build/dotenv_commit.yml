@@ -2,7 +2,7 @@ dotenv_commit:
   stage: build
   variables:
     GIT_STRATEGY: fetch
-  needs: [ ]
+  needs: [ image_build ]
   artifacts:
     paths:
       - '.env*'
