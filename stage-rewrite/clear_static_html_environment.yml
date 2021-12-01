@@ -11,7 +11,7 @@ clear_html_production:
     SSH_SERVER: $SSH_PRODUCTION
     SERVER_ROOT_PATH: $SERVER_FOLDER_PREFIX_PRODUCTION/$SERVER_FOLDER_PRODUCTION
   rules:
-    - if: '$SSH_PRODUCTION != null && $SERVER_FOLDER_PRODUCTION != null'
+    - if: "$SSH_PRODUCTION != '' && $SERVER_FOLDER_PRODUCTION != ''"
       when: manual
     - when: never
 
@@ -22,6 +22,6 @@ clear_html_staging:
     SSH_SERVER: $SSH_STAGING
     SERVER_ROOT_PATH: $SERVER_FOLDER_PREFIX_STAGING/$SERVER_FOLDER_STAGING
   rules:
-    - if: '$SSH_PRODUCTION != null && $SERVER_FOLDER_PRODUCTION != null'
+    - if: "$SSH_PRODUCTION != '' && $SERVER_FOLDER_PRODUCTION != ''"
       when: manual
     - when: never
