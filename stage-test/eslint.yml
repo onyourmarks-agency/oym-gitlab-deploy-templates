@@ -7,6 +7,12 @@ eslint:
     - job: assets_build
       artifacts: true
       optional: true
+  cache:
+    - key: asset_build-$CI_COMMIT_REF_NAME-pnpm
+      paths:
+        - /root/.pnpm-store
+        - node_modules
+      policy: pull
   script:
     - 'pnpm eslint'
   rules:
