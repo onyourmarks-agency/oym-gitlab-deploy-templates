@@ -5,10 +5,6 @@ assets_build:
     GIT_STRATEGY: fetch
   needs: [ image_build ]
   before_script:
-    - "npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*"
-    - "npm config set store-dir /root/.pnpm-store"
-    - "pnpm set verify-store-integrity false"
-    - "pnpm config set store-dir /root/.pnpm-store"
     - "pnpm install --frozen-lockfile"
   cache:
     - key: asset_build-$CI_COMMIT_REF_NAME-build
