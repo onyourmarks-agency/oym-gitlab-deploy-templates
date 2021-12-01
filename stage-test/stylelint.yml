@@ -7,15 +7,15 @@ stylelint:
       artifacts: true
       optional: true
   before_script:
-    - 'npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*'
-    - 'npm config set store-dir /home/gitlab-runner/.pnpm-store'
-    - 'pnpm set verify-store-integrity false'
-    - 'pnpm config set store-dir ~/.pnpm-store'
-    - 'pnpm install --frozen-lockfile'
+    - "npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*"
+    - "npm config set store-dir /root/.pnpm-store"
+    - "pnpm set verify-store-integrity false"
+    - "pnpm config set store-dir /root/.pnpm-store"
+    - "pnpm install --frozen-lockfile"
   cache:
     - key: asset_build-$CI_COMMIT_REF_NAME-pnpm
       paths:
-        - /tmp/.pnpm-store
+        - /root/.pnpm-store
       policy: pull
   script:
     - 'pnpm stylelint'

@@ -1,5 +1,6 @@
 .deploy_global_template: &deploy_global
   stage: deploy
+  tags: [ 'dev02' ]
   when: manual
   variables:
     GIT_STRATEGY: fetch

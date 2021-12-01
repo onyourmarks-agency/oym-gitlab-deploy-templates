@@ -5,9 +5,9 @@ assets_build:
   needs: [ image_build ]
   before_script:
     - "npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*"
-    - "npm config set store-dir /tmp/.pnpm-store"
+    - "npm config set store-dir /root/.pnpm-store"
     - "pnpm set verify-store-integrity false"
-    - "pnpm config set store-dir /tmp/.pnpm-store"
+    - "pnpm config set store-dir /root/.pnpm-store"
     - "pnpm install --frozen-lockfile"
   cache:
     - key: asset_build-$CI_COMMIT_REF_NAME-build
@@ -16,7 +16,7 @@ assets_build:
       policy: push
     - key: asset_build-$CI_COMMIT_REF_NAME-pnpm
       paths:
-        - /tmp/.pnpm-store
+        - /root/.pnpm-store
       policy: pull-push
   script:
     - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"
