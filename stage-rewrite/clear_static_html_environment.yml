@@ -1,5 +1,6 @@
 .clear_html_global_template: &clear_html_global
   stage: rewrite
+  tags: [ 'dev02' ]
   needs: [ ]
   script:
     - '/bin/ssh $SSH_SERVER "sudo -u apache /usr/bin/php -f $SERVER_ROOT_PATH/current/craft cacheable/clear/html"'

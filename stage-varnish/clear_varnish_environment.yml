@@ -1,5 +1,6 @@
 .clear_varnish_template: &clear_varnish_global
   stage: varnish
+  tags: [ 'dev02' ]
   needs: [ ]
   script:
     - '/bin/bash clear-varnish.sh $VARNISH_ENVIRONMENT'

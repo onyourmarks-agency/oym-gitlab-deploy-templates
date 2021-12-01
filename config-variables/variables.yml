@@ -1,5 +1,3 @@
-image: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}
-
 variables:
   # Folders
   BUILD_FOLDER: public/build/

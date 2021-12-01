@@ -1,4 +1,5 @@
 phpcs:
+  image: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}
   stage: test
   variables:
     GIT_STRATEGY: fetch
