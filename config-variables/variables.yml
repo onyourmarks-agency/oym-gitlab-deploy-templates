@@ -9,7 +9,6 @@ variables:
 
   # Checker modes
   PHPCS_MODE: 'strict'
-  PHPSTAN_MODE: 'strict'
   ESLINT_MODE: 'strict'
   STYLELINT_MODE: 'strict'
 
