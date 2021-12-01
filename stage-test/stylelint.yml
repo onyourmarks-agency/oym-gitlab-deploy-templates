@@ -12,6 +12,11 @@ stylelint:
     - 'pnpm set verify-store-integrity false'
     - 'pnpm config set store-dir ~/.pnpm-store'
     - 'pnpm install --frozen-lockfile'
+  cache:
+    - key: asset_build-$CI_COMMIT_REF_NAME-pnpm
+      paths:
+        - /tmp/.pnpm-store
+      policy: pull
   script:
     - 'pnpm stylelint'
   rules:

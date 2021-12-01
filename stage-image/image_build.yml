@@ -4,7 +4,8 @@ image_build:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   script:
-    - cat DockerfileGitlab >> Dockerfile
+    - ls
+    - cat ${CI_PROJECT_DIR}/DockerfileGitlab >> ${CI_PROJECT_DIR}/Dockerfile
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
     - >-
@@ -12,5 +13,12 @@ image_build:
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
-
-
+  rules:
+    - if : $CI_COMMIT_MESSAGE =~ /CI_BUILD/
+      when: always
+    - changes:
+      - docker/*
+      - docker/**/*
+      - Dockerfile
+      - DockerfileGitlab
+      - .gitlab-ci.yml
