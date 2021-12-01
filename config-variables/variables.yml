@@ -1,3 +1,5 @@
+image: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}
+
 variables:
   # Folders
   BUILD_FOLDER: public/build/
@@ -22,10 +24,10 @@ variables:
   STAGING_ENV_FILE: .env.staging
 
   # Server locations
-  SSH_STAGING: null
-  SSH_PRODUCTION: null
-  SERVER_FOLDER_STAGING: null
-  SERVER_FOLDER_PRODUCTION: null
+  SSH_STAGING: ''
+  SSH_PRODUCTION: ''
+  SERVER_FOLDER_STAGING: ''
+  SERVER_FOLDER_PRODUCTION: ''
   SERVER_FOLDER_PREFIX_STAGING: /home/tde/domains
   SERVER_FOLDER_PREFIX_PRODUCTION: /home/tde/domains
 
