@@ -22,3 +22,7 @@ image_build:
       - Dockerfile
       - DockerfileGitlab
       - .gitlab-ci.yml
+      - package.json
+      - pnpm-lock.yaml
+      - webpack/*
+      - webpack/**/*
