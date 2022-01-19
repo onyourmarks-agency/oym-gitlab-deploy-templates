@@ -1,0 +1,17 @@
+image_build:
+  stage: build
+  tags: ['docker']
+  image: 'tomkukral/buildah'
+  variables:
+  before_script:
+    - podman version
+    - buildah version
+  script:
+    - echo "ENV COMPOSER_CACHE_DIR /root/.cache/composer" >> Dockerfile
+    - echo "COPY . /app" >> Dockerfile
+    - echo "RUN cd /app && composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts" >> Dockerfile
+    - buildah bud --no-cache -v /root/.cache/composer:/root/.cache/composer -t image_$CI_COMMIT_SHORT_SHA .
+  artifacts:
+    name: "composer_install-$CI_COMMIT_REF_NAME-vendor"
+    paths:
+      - $VENDOR_FOLDER
