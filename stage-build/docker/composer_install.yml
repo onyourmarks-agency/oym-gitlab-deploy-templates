@@ -10,6 +10,7 @@ composer_install:
   script:
     - echo "ENV COMPOSER_CACHE_DIR /root/.cache/composer" >> Dockerfile
     - echo "COPY . /app" >> Dockerfile
+    - echo "echo \"Intel\" > /root/cpu_type" >> Dockerfile
     - echo "RUN cd /app && composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts" >> Dockerfile
     - buildah bud --no-cache -v /root/.cache/composer:/root/.cache/composer -t image_$CI_COMMIT_SHORT_SHA .
   artifacts:
