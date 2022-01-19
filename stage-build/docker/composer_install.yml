@@ -1,5 +1,6 @@
-image_build:
+composer_install:
   stage: build
+  needs: [ ]
   tags: ['docker']
   image: 'tomkukral/buildah'
   variables:
