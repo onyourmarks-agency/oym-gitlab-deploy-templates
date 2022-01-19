@@ -8,7 +8,7 @@ composer_install:
     - podman version
     - buildah version
   script:
-    - echo "echo \"Pre script disabled\" > docker/scripts/pre-build/pre-build.sh
+    - echo "echo \"Pre script disabled\"" > docker/scripts/pre-build/pre-build.sh
     - echo "ENV COMPOSER_CACHE_DIR /root/.cache/composer" >> Dockerfile
     - echo "COPY . /app" >> Dockerfile
     - echo "RUN cd /app && composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts" >> Dockerfile
