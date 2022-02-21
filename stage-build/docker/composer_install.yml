@@ -1,19 +1,20 @@
 composer_install:
   stage: build
+  image: 'tomkukral/buildah'
   needs: [ ]
   tags: ['docker']
-  image: 'tomkukral/buildah'
-  variables:
-  before_script:
-    - podman version
-    - buildah version
   script:
+    - echo "RUN echo \"$(date +%Y-%m-%d:%H:%M:%S)\"" >> Dockerfile
     - echo "echo \"Pre script disabled\"" > docker/scripts/pre-build/pre-build.sh
     - echo "ENV COMPOSER_CACHE_DIR /root/.cache/composer" >> Dockerfile
     - echo "COPY . /app" >> Dockerfile
     - echo "RUN cd /app && composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts" >> Dockerfile
-    - buildah bud --no-cache -v /root/.cache/composer:/root/.cache/composer -v /root/$VENDOR_FOLDER:/app/$VENDOR_FOLDER -t image_$CI_COMMIT_SHORT_SHA .
+    - mkdir -p /root/vendor
+    - buildah bud -v /root/.cache/composer:/root/.cache/composer -v /root/$VENDOR_FOLDER:/app/$VENDOR_FOLDER -t image_$CI_COMMIT_SHORT_SHA .
+    - podman create --name app_$CI_COMMIT_SHORT_SHA "image_$CI_COMMIT_SHORT_SHA:latest"
+    - rm -rf /root/vendor
+    - podman cp app_$CI_COMMIT_SHORT_SHA:app/vendor vendor
   artifacts:
     name: "composer_install-$CI_COMMIT_REF_NAME-vendor"
     paths:
-      - /root/$VENDOR_FOLDER
+      - vendor
