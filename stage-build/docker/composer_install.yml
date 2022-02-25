@@ -10,7 +10,7 @@ composer_install:
     - echo "COPY . /app" >> Dockerfile
     - echo "RUN cd /app && composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts" >> Dockerfile
     - mkdir -p /root/vendor
-    - buildah bud -v /root/.cache/composer:/root/.cache/composer -v /root/$VENDOR_FOLDER:/app/$VENDOR_FOLDER -t image_$CI_COMMIT_SHORT_SHA .
+    - buildah bud -v /root/.cache/composer:/root/.cache/composer -t image_$CI_COMMIT_SHORT_SHA .
     - podman create --name app_$CI_COMMIT_SHORT_SHA "image_$CI_COMMIT_SHORT_SHA:latest"
     - rm -rf /root/vendor
     - podman cp app_$CI_COMMIT_SHORT_SHA:app/vendor vendor
