@@ -28,11 +28,10 @@ deploy_production:
     DEPLOY_ENVIRONMENT: production
   rules:
     - if: '$CI_COMMIT_REF_PROTECTED == "false" || $CI_COMMIT_REF_SLUG == "master"'
-      when: never
+
 deploy_staging:
   <<: *deploy_global
   variables:
     DEPLOY_ENVIRONMENT: staging
   rules:
     - if: '$CI_COMMIT_REF_PROTECTED == "false" || $CI_COMMIT_REF_SLUG != "master"'
-      when: never
