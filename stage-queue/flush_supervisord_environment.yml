@@ -14,8 +14,7 @@ flush_supervisord_production:
   needs:
     - job: deploy_production
   rules:
-    - if: '$CI_COMMIT_REF_PROTECTED == "true" && $CI_COMMIT_REF_SLUG != "master"'
-      when: never
+    - if: '$CI_COMMIT_REF_PROTECTED == "false" || $CI_COMMIT_REF_SLUG == "master"'
       
 flush_supervisord_staging:
   <<: *flush_supervisord_global
@@ -25,5 +24,4 @@ flush_supervisord_staging:
   needs:
     - job: deploy_staging
   rules:
-    - if: '$CI_COMMIT_REF_PROTECTED == "true" && $CI_COMMIT_REF_SLUG == "master"'
-      when: never
+    - if: '$CI_COMMIT_REF_PROTECTED == "false" || $CI_COMMIT_REF_SLUG != "master"'
