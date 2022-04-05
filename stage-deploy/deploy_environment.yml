@@ -34,5 +34,5 @@ deploy_staging:
   variables:
     DEPLOY_ENVIRONMENT: staging
   rules:
-    - if: '$CI_COMMIT_REF_PROTECTED == "true" && $CI_COMMIT_REF_SLUG == "master"'"'
+    - if: '$CI_COMMIT_REF_PROTECTED == "true" && $CI_COMMIT_REF_SLUG == "master"'
       when: never
