@@ -24,7 +24,7 @@ stylelint:
     - 'echo $(cat .stylelintcache |  sed  -e "s/REPLACEPATH/$PWDESC/g") > .stylelintcache'
   cache:
     key: eslint-$CI_COMMIT_REF_NAME-cache
-    paths:
+    files:
       - .stylelintcache
     policy: pull-push
   rules:
