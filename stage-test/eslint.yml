@@ -20,9 +20,9 @@ eslint:
   script:
   script:
     - 'PWDESC=$(echo $PWD | sed "s_/_\\\/_g")'
-    - '[[ -f .eslintcache ]] && echo $(cat .eslintcache |  sed  -e "s/$PWDESC/REPLACEPATH/g") > .eslintcache'
+    - '[[ -f .eslintcache ]] && echo $(cat .eslintcache |  sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
     - 'pnpm eslint'
-    - 'echo $(cat .eslintcache |  sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
+    - 'echo $(cat .eslintcache |  sed  -e "s/$PWDESC/REPLACEPATH/g") > .eslintcache'
   cache:
     key: eslint-$CI_COMMIT_REF_NAME-cache
     paths:
