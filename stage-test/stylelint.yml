@@ -18,7 +18,10 @@ stylelint:
     - 'pnpm config set store-dir $PNPM_CACHE_FOLDER'
     - 'pnpm install --frozen-lockfile'
   script:
+    - 'PWDESC=$(echo $PWD | sed 's_/_\\/_g')'
+    - 'echo $(cat .stylelintcache |  sed  -e "s/$PWDESC/REPLACEPATH/g") > .stylelintcache'
     - 'pnpm stylelint'
+    - 'echo $(cat .stylelintcache |  sed  -e "s/REPLACEPATH/$PWDESC/g") > .stylelintcache'
   cache:
     key: eslint-$CI_COMMIT_REF_NAME-cache
     paths:

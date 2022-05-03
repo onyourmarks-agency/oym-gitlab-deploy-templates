@@ -18,7 +18,11 @@ eslint:
     - 'pnpm config set store-dir $PNPM_CACHE_FOLDER'
     - 'pnpm install --frozen-lockfile'
   script:
+  script:
+    - 'PWDESC=$(echo $PWD | sed 's_/_\\/_g')'
+    - 'echo $(cat .eslintcache |  sed  -e "s/$PWDESC/REPLACEPATH/g") > .eslintcache'
     - 'pnpm eslint'
+    - 'echo $(cat .eslintcache |  sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
   cache:
     key: eslint-$CI_COMMIT_REF_NAME-cache
     paths:
