@@ -23,8 +23,8 @@ test_frontend:
     - '[[ $ESLINT_MODE != "disabled" ]]    && [[ -f .eslintcache ]]    && echo $(cat .eslintcache    | sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
 
     - '(
-         ([[ $STYLELINT_MODE != "disabled" ]] && pnpm eslint &)
-         ([[ $ESLINT_MODE != "disabled" ]]    && pnpm stylelint &)
+         ( [[ $STYLELINT_MODE != "disabled" ]] && pnpm eslint & );
+         ( [[ $ESLINT_MODE != "disabled" ]]    && pnpm stylelint & );
          wait
        ) | nl'
 
