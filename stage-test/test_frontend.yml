@@ -1,4 +1,4 @@
-stylelint:
+test_frontend:
   stage: test
   variables:
     GIT_STRATEGY: fetch
@@ -11,7 +11,6 @@ stylelint:
     - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
-    - 'nvm use $NPM_NODE_VERSION'
     - 'npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*'
     - 'npm config set store-dir $PNPM_CACHE_FOLDER'
     - 'pnpm set verify-store-integrity false'
@@ -19,16 +18,22 @@ stylelint:
     - 'pnpm install --frozen-lockfile'
   script:
     - 'PWDESC=$(echo $PWD | sed "s_/_\\\/_g")'
-    - '[[ -f .stylelintcache ]] && echo $(cat .stylelintcache | sed  -e "s/REPLACEPATH/$PWDESC/g") > .stylelintcache'
-    - 'pnpm stylelint'
-    - 'echo $(cat .stylelintcache | sed  -e "s/$PWDESC/REPLACEPATH/g") > .stylelintcache'
+    - '[[ $STYLELINT_MODE != "disabled" ]] && [[ -f .stylelintcache ]] && echo $(cat .stylelintcache | sed  -e "s/REPLACEPATH/$PWDESC/g") > .stylelintcache'
+    - '[[ $ESLINT_MODE != "disabled" ]]    && [[ -f .eslintcache ]]    && echo $(cat .eslintcache    | sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
+
+    - '[[ $STYLELINT_MODE != "disabled" ]] && pnpm eslint &'
+    - '[[ $ESLINT_MODE != "disabled" ]]    && pnpm stylelint &'
+    - 'wait'
+
+    - '[[ $STYLELINT_MODE != "disabled" ]] && echo $(cat .stylelintcache | sed  -e "s/$PWDESC/REPLACEPATH/g") > .stylelintcache'
+    - '[[ $ESLINT_MODE != "disabled" ]]    && echo $(cat .eslintcache    | sed  -e "s/$PWDESC/REPLACEPATH/g") > .eslintcache'
   cache:
     key: stylelint-$CI_COMMIT_REF_NAME-cache
     paths:
       - .stylelintcache
     policy: pull-push
   rules:
-    - if: '$STYLELINT_MODE == "strict"'
+    - if: '$STYLELINT_MODE == "strict" || $ESLINT_MODE == "strict"'
       changes:
         - assets/*
         - assets/**/*
@@ -38,21 +43,8 @@ stylelint:
         - webpack/**/*
       allow_failure: false
       when: on_success
-    - if: '$STYLELINT_MODE == "relaxed"'
-      changes:
-        - assets/*
-        - assets/**/*
-        - package.json
-        - pnpm-lock.yaml
-        - webpack/*
-        - webpack/**/*
-      allow_failure: true
-      when: on_success
-    - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $STYLELINT_MODE == "strict"'
+    - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && ($STYLELINT_MODE == "strict" || $ESLINT_MODE == "strict")'
       allow_failure: false
       when: on_success
-    - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $STYLELINT_MODE == "relaxed"'
-      allow_failure: true
-      when: on_success
-    - if: '$STYLELINT_MODE == "disabled"'
+    - if: '$STYLELINT_MODE == "disabled" && $ESLINT_MODE == "disabled"'
       when: never

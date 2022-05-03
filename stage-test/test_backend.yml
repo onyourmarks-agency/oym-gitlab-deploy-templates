@@ -1,4 +1,4 @@
-phpcs:
+test_backend:
   stage: test
   variables:
     GIT_STRATEGY: fetch

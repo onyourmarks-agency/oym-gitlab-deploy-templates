@@ -1,4 +1,8 @@
 variables:
+  # Default git parameters
+  GIT_DEPTH: 10
+  GIT_STRATEGY: 'fetch'
+
   # Folders
   BUILD_FOLDER: public/build/
   VENDOR_FOLDER: vendor
