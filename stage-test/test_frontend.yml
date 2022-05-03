@@ -18,12 +18,15 @@ test_frontend:
     - 'pnpm install --frozen-lockfile'
   script:
     - 'PWDESC=$(echo $PWD | sed "s_/_\\\/_g")'
+    
     - '[[ $STYLELINT_MODE != "disabled" ]] && [[ -f .stylelintcache ]] && echo $(cat .stylelintcache | sed  -e "s/REPLACEPATH/$PWDESC/g") > .stylelintcache'
     - '[[ $ESLINT_MODE != "disabled" ]]    && [[ -f .eslintcache ]]    && echo $(cat .eslintcache    | sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
 
-    - '[[ $STYLELINT_MODE != "disabled" ]] && pnpm eslint &'
-    - '[[ $ESLINT_MODE != "disabled" ]]    && pnpm stylelint &'
-    - 'wait'
+    - '(
+         ([[ $STYLELINT_MODE != "disabled" ]] && pnpm eslint &)
+         ([[ $ESLINT_MODE != "disabled" ]]    && pnpm stylelint &)
+         wait
+       ) | nl'
 
     - '[[ $STYLELINT_MODE != "disabled" ]] && echo $(cat .stylelintcache | sed  -e "s/$PWDESC/REPLACEPATH/g") > .stylelintcache'
     - '[[ $ESLINT_MODE != "disabled" ]]    && echo $(cat .eslintcache    | sed  -e "s/$PWDESC/REPLACEPATH/g") > .eslintcache'
