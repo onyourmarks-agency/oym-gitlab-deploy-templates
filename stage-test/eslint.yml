@@ -25,7 +25,7 @@ eslint:
     - 'echo $(cat .eslintcache |  sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
   cache:
     key: eslint-$CI_COMMIT_REF_NAME-cache
-    files:
+    paths:
       - .eslintcache
     policy: pull-push
   rules:
