@@ -9,9 +9,9 @@ assets_build:
     - "nvm install $NPM_NODE_VERSION"
     - "nvm use $NPM_NODE_VERSION"
     - "npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*"
-    - "npm config set store-dir /home/gitlab-runner/.pnpm-store"
+    - "npm config set store-dir $PNPM_CACHE_FOLDER"
     - "pnpm set verify-store-integrity false"
-    - "pnpm config set store-dir ~/.pnpm-store"
+    - "pnpm config set store-dir $PNPM_CACHE_FOLDERe"
     - "pnpm install --frozen-lockfile"
   cache:
     key: asset_build-$CI_COMMIT_REF_NAME-build

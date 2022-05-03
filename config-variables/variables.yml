@@ -2,14 +2,14 @@ variables:
   # Folders
   BUILD_FOLDER: public/build/
   VENDOR_FOLDER: vendor
+  PNPM_CACHE_FOLDER: /home/gitlab-runner/.pnpm-store
 
   # Versioning
-  WEBPACK_CLI_VERSION: '4.5'
-  PNPM_VERSION: '6.7'
+  WEBPACK_CLI_VERSION: '4.9.2'
+  PNPM_VERSION: '7.0'
 
   # Checker modes
   PHPCS_MODE: 'strict'
-  PHPSTAN_MODE: 'strict'
   ESLINT_MODE: 'strict'
   STYLELINT_MODE: 'strict'
 
