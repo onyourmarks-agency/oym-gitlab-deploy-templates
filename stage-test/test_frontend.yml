@@ -31,9 +31,10 @@ test_frontend:
     - '[[ $STYLELINT_MODE != "disabled" ]] && echo $(cat .stylelintcache | sed  -e "s/$PWDESC/REPLACEPATH/g") > .stylelintcache'
     - '[[ $ESLINT_MODE != "disabled" ]]    && echo $(cat .eslintcache    | sed  -e "s/$PWDESC/REPLACEPATH/g") > .eslintcache'
   cache:
-    key: stylelint-$CI_COMMIT_REF_NAME-cache
+    key: frontend-$CI_COMMIT_REF_NAME-cache
     paths:
       - .stylelintcache
+      - .eslintcache
     policy: pull-push
   rules:
     - if: '$STYLELINT_MODE == "strict" || $ESLINT_MODE == "strict"'
