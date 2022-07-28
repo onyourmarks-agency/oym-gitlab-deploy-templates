@@ -1,3 +1,4 @@
+---
 variables:
   # Default git parameters
   GIT_DEPTH: 10
@@ -32,4 +33,3 @@ variables:
   SERVER_FOLDER_PRODUCTION: ''
   SERVER_FOLDER_PREFIX_STAGING: /home/tde/domains
   SERVER_FOLDER_PREFIX_PRODUCTION: /home/tde/domains
-
