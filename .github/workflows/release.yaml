@@ -12,19 +12,26 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
       - uses: bluwy/substitute-string-action@v1
         id: sub
         with:
           _input-file: .gitlab-ci.yml
           _output-file: dist/.gitlab-ci.yml
           master: ${{ github.ref }}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/.gitlab-ci.yml
+          asset_name: .gitlab-ci.yml
+          tag: ${{ github.ref }}
+          overwrite: true
