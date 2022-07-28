@@ -1,3 +1,4 @@
+---
 test_frontend:
   stage: test
   variables:
@@ -47,7 +48,7 @@ test_frontend:
         - webpack/**/*
       allow_failure: false
       when: on_success
-    - if : '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && ($STYLELINT_MODE == "strict" || $ESLINT_MODE == "strict")'
+    - if: '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && ($STYLELINT_MODE == "strict" || $ESLINT_MODE == "strict")'
       allow_failure: false
       when: on_success
     - if: '$STYLELINT_MODE == "disabled" && $ESLINT_MODE == "disabled"'

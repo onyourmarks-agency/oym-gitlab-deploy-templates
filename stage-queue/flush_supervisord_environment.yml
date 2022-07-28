@@ -1,3 +1,4 @@
+---
 .flush_supervisord_template: &flush_supervisord_global
   stage: queue
   resource_group: supervisord
@@ -15,7 +16,7 @@ flush_supervisord_production:
     - job: deploy_production
   rules:
     - if: '$CI_COMMIT_REF_PROTECTED == "false" || $CI_COMMIT_REF_SLUG == "master"'
-      
+
 flush_supervisord_staging:
   <<: *flush_supervisord_global
   variables:

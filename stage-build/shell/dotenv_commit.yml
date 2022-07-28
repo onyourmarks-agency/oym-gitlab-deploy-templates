@@ -1,8 +1,9 @@
+---
 dotenv_commit:
   stage: build
   variables:
     GIT_STRATEGY: fetch
-  needs: [ ]
+  needs: []
   artifacts:
     paths:
       - '.env*'

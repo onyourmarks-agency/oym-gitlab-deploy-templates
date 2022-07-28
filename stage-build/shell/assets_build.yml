@@ -1,8 +1,9 @@
+---
 assets_build:
   stage: build
   variables:
     GIT_STRATEGY: fetch
-  needs: [ ]
+  needs: []
   before_script:
     - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
     - "echo Node version: $NPM_NODE_VERSION"
@@ -20,7 +21,7 @@ assets_build:
   script:
     - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"
   rules:
-    - if : $CI_COMMIT_MESSAGE =~ /CI_BUILD/
+    - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
       when: always
     - changes:
         - assets/*

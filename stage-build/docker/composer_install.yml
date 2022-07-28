@@ -1,7 +1,8 @@
+---
 composer_install:
   stage: build
   image: 'tomkukral/buildah'
-  needs: [ ]
+  needs: []
   tags: ['docker']
   script:
     - echo "RUN echo \"$(date +%Y-%m-%d:%H:%M:%S)\"" >> Dockerfile

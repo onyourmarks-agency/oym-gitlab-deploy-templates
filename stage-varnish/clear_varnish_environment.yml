@@ -1,6 +1,7 @@
+---
 .clear_varnish_template: &clear_varnish_global
   stage: varnish
-  needs: [ ]
+  needs: []
   script:
     - '/bin/bash clear-varnish.sh $VARNISH_ENVIRONMENT'
   rules:

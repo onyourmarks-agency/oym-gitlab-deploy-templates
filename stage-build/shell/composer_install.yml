@@ -1,8 +1,9 @@
+---
 composer_install:
   stage: build
   variables:
     GIT_STRATEGY: fetch
-  needs: [ ]
+  needs: []
   script:
     - 'composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-suggest --no-scripts'
   artifacts:
