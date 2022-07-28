@@ -11,17 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Finding files and store to output
-        id: finding-files
-        run: |
-          echo "::set-output name=FILELIST::$(find -E . -regex '.*\.(yaml|yml)' -print)"
-
-      - name: Processing my found files from output
-        run: |
-          IFS="," read -a myarray <<< ${{ steps.finding-files.outputs.FILELIST }}
-          for i in "${myarray[@]}"; do
-            file_path=$(dirname "${i}")
-            file_name=$(basename "${i}")
-            cd file_path
-            yamllint file_name
-          done
+      - name: Validate YAML file
+        run: yamllint .
