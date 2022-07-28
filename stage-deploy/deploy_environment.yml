@@ -1,3 +1,4 @@
+---
 .deploy_global_template: &deploy_global
   stage: deploy
   when: manual
