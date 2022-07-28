@@ -37,4 +37,3 @@ test_backend:
       when: on_success
     - if: '$PHPCS_MODE == "disabled"'
       when: never
-

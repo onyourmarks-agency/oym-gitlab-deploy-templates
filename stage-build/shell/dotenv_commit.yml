@@ -11,6 +11,4 @@ dotenv_commit:
     - '[[ -f $PRODUCTION_ENV_FILE ]] && sed -i "s/\$VAR_COMMIT_ID/$CI_COMMIT_SHORT_SHA/" $PRODUCTION_ENV_FILE'
     - '[[ -f $STAGING_ENV_FILE ]] && sed -i "s/\$VAR_COMMIT_ID/$CI_COMMIT_SHORT_SHA/" $STAGING_ENV_FILE'
   rules:
-    - exists:
-      - '$PRODUCTION_ENV_FILE'
-      - '$STAGING_ENV_FILE'
+    - exists: ['$PRODUCTION_ENV_FILE', '$STAGING_ENV_FILE']
