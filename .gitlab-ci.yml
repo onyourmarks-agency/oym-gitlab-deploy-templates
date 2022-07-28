@@ -1,3 +1,4 @@
+---
 stages:
   - build
   - test
@@ -10,10 +11,10 @@ default:
   tags: ['dev02']
 
 include:
-  # Config
+  #  Config
   - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/config-variables/variables.yml'
 
-  # Jobs
+  #  Jobs
   - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/shell/assets_build.yml'
   - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/docker/composer_install.yml'
   - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/shell/dotenv_commit.yml'
