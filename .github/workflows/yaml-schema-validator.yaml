@@ -12,4 +12,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Validate YAML file
-        run: for file in $(find -E . -regex '.*\.(yaml|yml)'); do; yamllint $file; done;
+        run: "for file in $(find -E . -regex '.*\.(yaml|yml)'); do; yamllint $file; done;"
