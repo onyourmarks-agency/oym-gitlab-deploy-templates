@@ -12,6 +12,9 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v2
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -25,13 +28,13 @@ jobs:
         id: sub
         with:
           _input-file: .gitlab-ci.yml
-          _output-file: dist/.gitlab-ci.yml
-          master: ${{ github.ref }}
+          _output-file: .dist/.gitlab-ci.yml
+          master: ${{ steps.get_version.outputs.VERSION }}
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/.gitlab-ci.yml
+          file: .dist/.gitlab-ci.yml
           asset_name: .gitlab-ci.yml
           tag: ${{ github.ref }}
           overwrite: true
