@@ -1,0 +1,40 @@
+stages:
+  - build
+  - test
+  - deploy
+  - queue
+  - rewrite
+  - varnish
+
+default:
+  tags: ['dev02']
+
+include:
+  # Config
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/config-variables/variables.yml'
+
+  # Jobs
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/shell/assets_build.yml'
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/docker/composer_install.yml'
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/shell/dotenv_commit.yml'
+
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/test_backend.yml'
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/test_frontend.yml'
+
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-deploy/deploy_environment.yml'
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-queue/flush_supervisord_environment.yml'
+
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-rewrite/clear_static_html_environment.yml'
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-rewrite/clear_static_json_environment.yml'
+
+  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-varnish/clear_varnish_environment.yml'
+
+variables:
+  PHPCS_MODE: 'strict'
+  ESLINT_MODE: 'strict'
+  STYLELINT_MODE: 'strict'
+
+  SSH_STAGING: tde@server.tdebv.nl
+  SSH_PRODUCTION: tde@server.tdebv.nl
+  SERVER_FOLDER_STAGING: 'project.tld'
+  SERVER_FOLDER_PRODUCTION: 'project.tdebv.nl'
