@@ -1,6 +1,6 @@
 composer_install:
   stage: build
-  image: 'tomkukral/buildah'
+  image: 'tomkukral/buildah:0.32'
   needs: [ ]
   tags: ['docker']
   script:
