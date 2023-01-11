@@ -21,21 +21,8 @@ test_backend:
         - src/*
         - src/**/*
       when: on_success
-    - if: '$PHPCS_MODE == "relaxed"'
-      changes:
-        - composer.json
-        - composer.lock
-        - modules/*
-        - modules/**/*
-        - src/*
-        - src/**/*
-      allow_failure: true
-      when: on_success
     - if: '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPCS_MODE == "strict"'
       allow_failure: false
-      when: on_success
-    - if: '$CI_COMMIT_MESSAGE =~ /CI_BUILD/ && $PHPCS_MODE == "relaxed"'
-      allow_failure: true
       when: on_success
     - if: '$PHPCS_MODE == "disabled"'
       when: never
