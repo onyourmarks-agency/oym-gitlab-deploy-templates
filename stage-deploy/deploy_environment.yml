@@ -25,7 +25,8 @@
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
-    - when: always
+    - when: manual
+
 deploy_production:
   <<: *deploy_global
   variables:
