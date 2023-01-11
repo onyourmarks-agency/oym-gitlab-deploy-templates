@@ -28,6 +28,8 @@ deploy_production:
   variables:
     DEPLOY_ENVIRONMENT: production
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+       when: never
     - if: '$CI_COMMIT_REF_PROTECTED == "false" || $CI_COMMIT_REF_SLUG == "master"'
 
 deploy_staging:
@@ -35,4 +37,6 @@ deploy_staging:
   variables:
     DEPLOY_ENVIRONMENT: staging
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+       when: never
     - if: '$CI_COMMIT_REF_PROTECTED == "false" || $CI_COMMIT_REF_SLUG != "master"'
