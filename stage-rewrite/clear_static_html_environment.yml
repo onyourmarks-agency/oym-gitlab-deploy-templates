@@ -12,6 +12,8 @@ clear_html_production:
     SSH_SERVER: $SSH_PRODUCTION
     SERVER_ROOT_PATH: $SERVER_FOLDER_PREFIX_PRODUCTION/$SERVER_FOLDER_PRODUCTION
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: "$SSH_PRODUCTION != '' && $SERVER_FOLDER_PRODUCTION != ''"
       when: manual
     - when: never
