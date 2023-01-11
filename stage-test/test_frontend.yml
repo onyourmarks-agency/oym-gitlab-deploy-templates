@@ -23,12 +23,13 @@ test_frontend:
     - '[[ $STYLELINT_MODE != "disabled" ]] && [[ -f .stylelintcache ]] && echo $(cat .stylelintcache | sed  -e "s/REPLACEPATH/$PWDESC/g") > .stylelintcache'
     - '[[ $ESLINT_MODE != "disabled" ]]    && [[ -f .eslintcache ]]    && echo $(cat .eslintcache    | sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
 
-    - '(
-         ( [[ $STYLELINT_MODE != "disabled" ]] && pnpm eslint & );
-         ( [[ $ESLINT_MODE != "disabled" ]]    && pnpm stylelint & );
-         wait
-       ) | nl'
+    - 'FAIL=0'
+    - '[[ $ESLINT_MODE != "disabled" ]] && pnpm eslint &'
+    - '[[ $STYLELINT_MODE != "disabled" ]]    && pnpm stylelint &'
 
+    - 'for job in $(jobs -p); do wait $job || let "FAIL+=1";done'
+    - 'if [ "$FAIL" != "0" ]; then exit 1; fi'
+       
     - '[[ $STYLELINT_MODE != "disabled" ]] && echo $(cat .stylelintcache | sed  -e "s/$PWDESC/REPLACEPATH/g") > .stylelintcache'
     - '[[ $ESLINT_MODE != "disabled" ]]    && echo $(cat .eslintcache    | sed  -e "s/$PWDESC/REPLACEPATH/g") > .eslintcache'
   cache:
