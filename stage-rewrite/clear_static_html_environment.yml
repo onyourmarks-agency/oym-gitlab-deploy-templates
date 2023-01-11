@@ -23,6 +23,8 @@ clear_html_staging:
     SSH_SERVER: $SSH_STAGING
     SERVER_ROOT_PATH: $SERVER_FOLDER_PREFIX_STAGING/$SERVER_FOLDER_STAGING
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: "$SSH_STAGING != '' && $SERVER_FOLDER_STAGING != ''"
       when: manual
     - when: never

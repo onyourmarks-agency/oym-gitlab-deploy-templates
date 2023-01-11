@@ -5,6 +5,8 @@
   script:
     - '/bin/bash clear-varnish.sh $VARNISH_ENVIRONMENT'
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - exists: ['clear-varnish.sh']
       when: manual
     - when: never

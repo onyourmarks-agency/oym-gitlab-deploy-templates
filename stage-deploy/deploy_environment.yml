@@ -22,19 +22,16 @@
   environment: $DEPLOY_ENVIRONMENT
   script:
     - 'dep deploy $DEPLOY_ENVIRONMENT --branch=$CI_COMMIT_REF_NAME'
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
 
 deploy_production:
   <<: *deploy_global
   variables:
     DEPLOY_ENVIRONMENT: production
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
 
 deploy_staging:
   <<: *deploy_global
   variables:
     DEPLOY_ENVIRONMENT: staging
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
