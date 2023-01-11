@@ -11,7 +11,7 @@ test_backend:
     - 'phpcs --error-severity=$PHPCS_ERROR_SEVERITY --warning-severity=$PHPCS_WARNING_SEVERITY --extensions=php'
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-       when: never
+      when: never
     - if: '$PHPCS_MODE == "strict"'
       changes:
         - composer.json
