@@ -29,7 +29,7 @@ deploy_production:
     DEPLOY_ENVIRONMENT: production
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-       when: never
+      when: never
 
 deploy_staging:
   <<: *deploy_global
@@ -37,4 +37,4 @@ deploy_staging:
     DEPLOY_ENVIRONMENT: staging
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-       when: never
+      when: never
