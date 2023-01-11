@@ -20,3 +20,6 @@ composer_install:
     name: "composer_install-$CI_COMMIT_REF_NAME-vendor"
     paths:
       - vendor
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
