@@ -29,7 +29,7 @@ test_frontend:
 
     - 'for job in $(jobs -p); do wait $job || let "FAIL+=1";done'
     - 'if [ "$FAIL" != "0" ]; then exit 1; fi'
-       
+
     - '[[ $STYLELINT_MODE != "disabled" ]] && echo $(cat .stylelintcache | sed  -e "s/$PWDESC/REPLACEPATH/g") > .stylelintcache'
     - '[[ $ESLINT_MODE != "disabled" ]]    && echo $(cat .eslintcache    | sed  -e "s/$PWDESC/REPLACEPATH/g") > .eslintcache'
   cache:
