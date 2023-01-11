@@ -21,6 +21,8 @@ assets_build:
   script:
     - "NODE_ENV=prod ./node_modules/.bin/webpack --config webpack/webpack.config.js"
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
       when: always
     - changes:
