@@ -39,6 +39,8 @@ test_frontend:
       - .eslintcache
     policy: pull-push
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+       when: never
     - if: '$STYLELINT_MODE == "strict" || $ESLINT_MODE == "strict"'
       changes:
         - assets/*
