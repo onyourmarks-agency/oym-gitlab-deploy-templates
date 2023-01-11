@@ -40,7 +40,7 @@ test_frontend:
     policy: pull-push
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-       when: never
+      when: never
     - if: '$STYLELINT_MODE == "strict" || $ESLINT_MODE == "strict"'
       changes:
         - assets/*
