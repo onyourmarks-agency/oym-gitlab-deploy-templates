@@ -13,7 +13,6 @@ test_frontend:
     - 'echo Node version: $NPM_NODE_VERSION'
     - 'nvm install $NPM_NODE_VERSION'
     - 'npm install -g pnpm@$PNPM_VERSION.* eslint webpack-cli@$WEBPACK_CLI_VERSION.*'
-    - 'npm config set store-dir $PNPM_CACHE_FOLDER'
     - 'pnpm set verify-store-integrity false'
     - 'pnpm config set store-dir $PNPM_CACHE_FOLDER'
     - 'pnpm install --frozen-lockfile'
