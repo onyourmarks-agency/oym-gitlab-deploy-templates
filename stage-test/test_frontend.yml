@@ -23,8 +23,8 @@ test_frontend:
     - '[[ $ESLINT_MODE != "disabled" ]]    && [[ -f .eslintcache ]]    && echo $(cat .eslintcache    | sed  -e "s/REPLACEPATH/$PWDESC/g") > .eslintcache'
 
     - 'FAIL=0'
-    - '[[ $ESLINT_MODE != "disabled" ]] && pnpm eslint &'
-    - '[[ $STYLELINT_MODE != "disabled" ]]    && pnpm stylelint &'
+    - 'if [[ $ESLINT_MODE != "disabled" ]]; then pnpm eslint; else exit 0; fi &'
+    - 'if [[ $STYLELINT_MODE != "disabled" ]]; then pnpm stylelint; else exit 0; fi &'
 
     - 'for job in $(jobs -p); do wait $job || let "FAIL+=1";done'
     - 'if [ "$FAIL" != "0" ]; then exit 1; fi'
