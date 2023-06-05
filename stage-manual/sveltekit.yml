@@ -10,7 +10,7 @@
     - "pnpm set verify-store-integrity false"
     - "pnpm config set store-dir $PNPM_CACHE_FOLDERe"
     - "pnpm install --frozen-lockfile"
-    - 'export VITE_ENVIRONMENT=$(echo ".env.$VITE_ENVIRONMENT_FILE" | sed "s/\.env\.//")'
+    - 'export VITE_ENVIRONMENT=$(echo "$VITE_ENVIRONMENT_FILE" | sed "s/\.env\.//")'
   cache:
     key: asset_build-$CI_COMMIT_REF_NAME-build
     paths:
