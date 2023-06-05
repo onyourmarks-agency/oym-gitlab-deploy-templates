@@ -1,0 +1,36 @@
+---
+.sveltekit: &sveltekit_production_global
+  stage: sveltekit
+  needs: []
+  before_script:
+    - "NPM_NODE_VERSION=$(node -p \"require('./package.json').config.node\")"
+    - "echo Node version: $NPM_NODE_VERSION"
+    - "nvm install $NPM_NODE_VERSION"
+    - "npm install -g pnpm@$PNPM_VERSION.* eslint"
+    - "pnpm set verify-store-integrity false"
+    - "pnpm config set store-dir $PNPM_CACHE_FOLDERe"
+    - "pnpm install --frozen-lockfile"
+    - 'export VITE_ENVIRONMENT=$(echo ".env.$VITE_ENVIRONMENT_FILE" | sed "s/\.env\.//")'
+  cache:
+    key: asset_build-$CI_COMMIT_REF_NAME-build
+    paths:
+      - $BUILD_FOLDER
+    policy: push
+  script:
+    - "NODE_ENV=prod pnpm svg-sprite && vite build --mode $VITE_ENVIRONMENT"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - when: manual
+
+sveltekit_production:
+  <<: *sveltekit_production_global
+  variables:
+    GIT_STRATEGY: fetch
+    VITE_ENVIRONMENT_FILE: $PRODUCTION_ENV_FILE
+
+sveltekit_staging:
+  <<: *sveltekit_production_global
+  variables:
+    GIT_STRATEGY: fetch
+    VITE_ENVIRONMENT_FILE: $STAGING_ENV_FILE

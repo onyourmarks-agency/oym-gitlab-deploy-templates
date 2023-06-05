@@ -13,9 +13,6 @@
     - job: composer_install
       artifacts: true
       optional: true
-    - job: assets_build
-      artifacts: true
-      optional: true
     - job: dotenv_commit
       artifacts: true
       optional: true

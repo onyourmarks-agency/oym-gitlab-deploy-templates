@@ -1,4 +1,12 @@
 ---
+stages:
+  - manual
+  - build
+  - test
+  - deploy
+  - queue
+  - rewrite
+
 variables:
   # Default git parameters
   GIT_DEPTH: 10
