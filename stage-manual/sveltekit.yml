@@ -1,5 +1,5 @@
 ---
-.sveltekit: &sveltekit_production_global
+.sveltekit: &sveltekit_global
   stage: manual
   needs: []
   before_script:
@@ -24,13 +24,13 @@
     - when: manual
 
 sveltekit_production:
-  <<: *sveltekit_production_global
+  <<: *sveltekit_global
   variables:
     GIT_STRATEGY: fetch
     VITE_ENVIRONMENT_FILE: $PRODUCTION_ENV_FILE
 
 sveltekit_staging:
-  <<: *sveltekit_production_global
+  <<: *sveltekit_global
   variables:
     GIT_STRATEGY: fetch
     VITE_ENVIRONMENT_FILE: $STAGING_ENV_FILE
