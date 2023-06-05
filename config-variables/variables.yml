@@ -10,8 +10,8 @@ variables:
   PNPM_CACHE_FOLDER: /home/gitlab-runner/.pnpm-store
 
   # Versioning
-  WEBPACK_CLI_VERSION: '5.0'
-  PNPM_VERSION: '7.26'
+  WEBPACK_CLI_VERSION: '5.1'
+  PNPM_VERSION: '8.6'
 
   # Checker modes
   PHPCS_MODE: 'strict'
