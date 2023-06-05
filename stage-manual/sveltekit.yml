@@ -17,7 +17,7 @@
       - $BUILD_FOLDER
     policy: push
   script:
-    - "NODE_ENV=prod pnpm svg-sprite && vite build --mode $VITE_ENVIRONMENT"
+    - "NODE_ENV=prod pnpm build --mode $VITE_ENVIRONMENT"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
