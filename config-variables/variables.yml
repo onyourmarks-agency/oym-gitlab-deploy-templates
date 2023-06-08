@@ -6,6 +6,7 @@ stages:
   - deploy
   - queue
   - rewrite
+  - varnish
 
 variables:
   # Default git parameters
