@@ -1,0 +1,139 @@
+---
+stages:
+  - "prepare"
+  - "test"
+  - "deploy"
+  - "post-deploy"
+  - "static-cache"
+  - "proxy-cache"
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
+
+variables:
+  # Git
+  GIT_DEPTH:
+    value: "10"
+    description: "GIT_DEPTH does a shallow clone of the repository and can significantly speed up cloning. It can be helpful for repositories with a large number of commits or old, large binaries. The value is passed to git fetch and git clone."
+
+  GIT_STRATEGY:
+    value: "fetch"
+    description: "You can set the GIT_STRATEGY used to fetch the repository content, either globally or per-job in the variables section"
+    options:
+      - "clone"
+      - "fetch"
+      - "none"
+
+  # Docker
+  DOCKER_HOST:
+    value: "tcp://docker:2376"
+    description: "Define the location of the docker host"
+
+  DOCKER_TLS_CERTDIR:
+    value: "/certs"
+    description: "Define the location of the docker certificate directory"
+
+  # Folder
+  BUILD_FOLDER:
+    value: "public/build/"
+    description: "Define the location of the asset build folder. For building PNPM/NPM or Yarn"
+
+  VENDOR_FOLDER:
+    value: "vendor/"
+    description: "Define the location of the vendor folder. For installing composer packages"
+
+  # Versioning
+  NODE_VERSION:
+    value: "20.8.1"
+    description: "Define the node version"
+    options:
+      - "20.8.1"
+      - "18.17.1"
+      - "16.20.2"
+
+  PHP_VERSION:
+    value: "8.2"
+    description: "Define the PHP version"
+    options:
+      - "8.2"
+
+  PNPM_VERSION:
+    value: "latest-8"
+    description: "Define the PNPM version"
+    options:
+      - "latest-8"
+      - "latest-7"
+
+  # Severity tuning
+  PHPCS_ERROR_SEVERITY:
+    value: "1"
+    description: "Tune the severity for PHPCS errors. 1 is lowest, 9 is highest (more strict)"
+    options:
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+      - "5"
+      - "6"
+      - "7"
+      - "8"
+      - "9"
+
+  PHPCS_WARNING_SEVERITY:
+    value: "8"
+    description: "Tune the severity for PHPCS warnings. 1 is lowest, 9 is highest (more strict)"
+    options:
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+      - "5"
+      - "6"
+      - "7"
+      - "8"
+      - "9"
+
+  # File locations
+  PRODUCTION_ENV_FILE:
+    value: ".env.production"
+    description: "Define the environment path location for production"
+
+  STAGING_ENV_FILE:
+    value: ".env.staging"
+    description: "Define the environment path location for staging"
+
+  # Server locations
+  SSH_STAGING:
+    value: ""
+    description: "Define the SSH staging server for deployment, and running scripts"
+
+  SSH_PRODUCTION:
+    value: ""
+    description: "Define the SSH production server for deployment, and running scripts"
+
+  SERVER_FOLDER_STAGING:
+    value: ""
+    description: "Define the SSH staging folder for deployment, and running scripts"
+
+  SERVER_FOLDER_PRODUCTION:
+    value: ""
+    description: "Define the SSH staging folder for deployment, and running scripts"
+
+  SERVER_FOLDER_PREFIX_STAGING:
+    value: "/home/tde/domains"
+    description: "Define the SSH staging prefix (path to folder) for deployment, and running scripts"
+
+  SERVER_FOLDER_PREFIX_PRODUCTION:
+    value: "/home/tde/domains"
+    description: "Define the SSH production prefix (path to folder) for deployment, and running scripts"
+
+  PRIMARY_SITE_URL_STAGING:
+    value: $SERVER_FOLDER_STAGING
+    description: "Define the primary staging URL without https://. Default is set to the SSH staging folder"
+
+  PRIMARY_SITE_URL_PRODUCTION:
+    value: $SERVER_FOLDER_PRODUCTION
+    description: "Define the primary production URL without https://. Default is set to the SSH production folder"

@@ -1,0 +1,38 @@
+---
+test:phpcs:
+  stage: test
+  image: registry.gitlab.com/stayallive/php:$PHP_VERSION
+  needs:
+    - job: build:composer
+      optional: true
+  before_script:
+    - "COMPOSER_CACHE_DIR=composer-cache composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true"
+    - "COMPOSER_CACHE_DIR=composer-cache composer global require --verbose --prefer-dist --no-progress --no-interaction slevomat/coding-standard php-parallel-lint/php-parallel-lint"
+  script:
+    - '/root/.composer/vendor/bin/phpcs -d error_reporting=E_ALL~E_DEPRECATED --error-severity=$PHPCS_ERROR_SEVERITY --warning-severity=$PHPCS_WARNING_SEVERITY --extensions=php'
+  cache:
+    - key: "composer-package-cache"
+      paths:
+        - composer-cache/
+      policy: pull-push
+      unprotect: true
+    - key:
+        files:
+          - composer.lock
+        prefix: composer-vendors
+      paths:
+        - $VENDOR_FOLDER
+      policy: pull
+      unprotect: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
+      when: on_success
+    - changes:
+        - composer.json
+        - composer.lock
+        - .gitlab-ci.yml
+        - "**/*.php"
+        - "**/*.twig"
+      when: on_success

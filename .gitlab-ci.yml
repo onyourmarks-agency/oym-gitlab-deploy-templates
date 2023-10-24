@@ -1,40 +1,25 @@
 ---
-stages:
-  - build
-  - test
-  - deploy
-  - queue
-  - rewrite
-  - varnish
-
-default:
-  tags: ['dev02']
-
 include:
-  #  Config
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/config-variables/variables.yml'
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/config/variables.yml"
 
-  #  Jobs
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/shell/assets_build.yml'
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/docker/composer_install.yml'
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/shell/dotenv_commit.yml'
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-build/assets.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-build/vendors.yml"
 
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/test_backend.yml'
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/test_frontend.yml'
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-test/phpcs.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-test/eslint.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-test/prettier.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-test/stylelint.yml"
 
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-deploy/deploy_environment.yml'
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-queue/flush_supervisord_environment.yml'
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-deploy/deployer.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-post-deploy/supervisord.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-post-deploy/release.yml"
 
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-rewrite/clear_static_html_environment.yml'
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-rewrite/clear_static_json_environment.yml'
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-static-cache/static-html.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-static-cache/static-json.yml"
 
-  - remote: 'https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-varnish/clear_varnish_environment.yml'
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-proxy-cache/varnish.yml"
 
 variables:
-  PHPCS_MODE: 'strict'
-  ESLINT_MODE: 'strict'
-  STYLELINT_MODE: 'strict'
-
   SSH_STAGING: tde@server.tdebv.nl
   SSH_PRODUCTION: tde@server.tdebv.nl
   SERVER_FOLDER_STAGING: 'project.tld'

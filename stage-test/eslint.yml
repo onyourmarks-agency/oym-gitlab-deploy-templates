@@ -1,0 +1,44 @@
+---
+test:eslint:
+  stage: test
+  image: node:$NODE_VERSION
+  needs:
+    - job: build:assets
+      optional: true
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@$PNPM_VERSION --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm eslint
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+        prefix: pnpm-store
+      paths:
+        - .pnpm-store
+      policy: pull
+      unprotect: true
+    - key: "prettier-cache"
+      paths:
+        - .eslintcache
+      policy: pull-push
+      unprotect: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
+      when: on_success
+    - changes:
+        - assets/*
+        - assets/**/*
+        - package.json
+        - pnpm-lock.yaml
+        - webpack/*
+        - webpack/**/*
+        - .gitlab-ci.yml
+        - .prettier*
+        - public/*
+      when: on_success

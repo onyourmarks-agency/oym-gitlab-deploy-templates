@@ -1,0 +1,57 @@
+---
+.deploy_global_template: &deploy_global
+  stage: deploy
+  when: manual
+  image: $CI_REGISTRY/tdenl/tde-public/tde-docker-deploy-image:$PHP_VERSION
+  cache:
+    - key: 'asset_build-$CI_COMMIT_REF_NAME-build'
+      paths:
+        - $BUILD_FOLDER
+      policy: pull
+      unprotect: true
+    - key:
+        files:
+          - composer.lock
+        prefix: composer-vendors
+      paths:
+        - $VENDOR_FOLDER
+      policy: pull
+      unprotect: true
+  needs:
+    - job: build:composer
+      optional: true
+    - job: build:assets
+      optional: true
+  environment:
+    name: $DEPLOY_ENVIRONMENT
+    url: https://$PRIMARY_SITE_URL
+    action: start
+  before_script:
+    - mkdir -p ~/.ssh
+    - SANITIZED_SSH_PRIVATE_KEY=$(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
+    - SANITIZED_SSH_PUBLIC_SIGNED_KEY=$(echo "$SSH_PUBLIC_SIGNED_KEY" | tr -d '\r')
+    - cp -f $SSH_CONFIG ~/.ssh/config
+    - echo "$SANITIZED_SSH_PRIVATE_KEY" >> ~/.ssh/id_ecdsa
+    - echo "$SANITIZED_SSH_PUBLIC_SIGNED_KEY" >> ~/.ssh/id_ecdsa-signed.pub
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/*
+  script:
+    - '[[ -f $PRODUCTION_ENV_FILE ]] && sed -i "s/\$VAR_COMMIT_ID/$CI_COMMIT_SHORT_SHA/" $PRODUCTION_ENV_FILE'
+    - '[[ -f $STAGING_ENV_FILE ]] && sed -i "s/\$VAR_COMMIT_ID/$CI_COMMIT_SHORT_SHA/" $STAGING_ENV_FILE'
+    - 'dep deploy $DEPLOY_ENVIRONMENT --branch=$CI_COMMIT_REF_NAME -vvv'
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - when: manual
+
+deploy:production:
+  <<: *deploy_global
+  variables:
+    DEPLOY_ENVIRONMENT: production
+    PRIMARY_SITE_URL: $PRIMARY_SITE_URL_PRODUCTION
+
+deploy:staging:
+  <<: *deploy_global
+  variables:
+    DEPLOY_ENVIRONMENT: staging
+    PRIMARY_SITE_URL: $PRIMARY_SITE_URL_STAGING

@@ -1,0 +1,38 @@
+---
+.flush_supervisord_template: &flush_supervisord_global
+  stage: post-deploy
+  resource_group: supervisord
+  image: kroniak/ssh-client
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - mkdir -p ~/.ssh
+    - SANITIZED_SSH_PRIVATE_KEY=$(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
+    - SANITIZED_SSH_PUBLIC_SIGNED_KEY=$(echo "$SSH_PUBLIC_SIGNED_KEY" | tr -d '\r')
+    - cp -f $SSH_CONFIG ~/.ssh/config
+    - echo "$SANITIZED_SSH_PRIVATE_KEY" >> ~/.ssh/id_ecdsa
+    - echo "$SANITIZED_SSH_PUBLIC_SIGNED_KEY" >> ~/.ssh/id_ecdsa-signed.pub
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/*
+  script:
+    - 'ssh $SSH_SERVER "sudo /usr/bin/supervisorctl restart all"'
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - when: on_success
+
+supervisord:staging:
+  <<: *flush_supervisord_global
+  variables:
+    SSH_SERVER: $SSH_STAGING
+    GIT_STRATEGY: none
+  needs:
+    - job: deploy:staging
+
+supervisord:production:
+  <<: *flush_supervisord_global
+  variables:
+    SSH_SERVER: $SSH_PRODUCTION
+    GIT_STRATEGY: none
+  needs:
+    - job: deploy:production

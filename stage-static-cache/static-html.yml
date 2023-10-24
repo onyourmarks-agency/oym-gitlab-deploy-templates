@@ -1,0 +1,42 @@
+---
+.clear_varnish_template: &clear_varnish_global
+  stage: static-cache
+  needs: []
+  image: kroniak/ssh-client
+  before_script:
+    - mkdir -p ~/.ssh
+    - SANITIZED_SSH_PRIVATE_KEY=$(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
+    - SANITIZED_SSH_PUBLIC_SIGNED_KEY=$(echo "$SSH_PUBLIC_SIGNED_KEY" | tr -d '\r')
+    - cp -f $SSH_CONFIG ~/.ssh/config
+    - echo "$SANITIZED_SSH_PRIVATE_KEY" >> ~/.ssh/id_ecdsa
+    - echo "$SANITIZED_SSH_PUBLIC_SIGNED_KEY" >> ~/.ssh/id_ecdsa-signed.pub
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/*
+  script:
+    - 'ssh $SSH_SERVER "sudo -u apache /usr/bin/php -f $SERVER_ROOT_PATH/current/craft cacheable/clear/json"'
+
+static:html:production:
+  <<: *clear_varnish_global
+  variables:
+    GIT_STRATEGY: none
+    SSH_SERVER: $SSH_PRODUCTION
+    SERVER_ROOT_PATH: $SERVER_FOLDER_PREFIX_PRODUCTION/$SERVER_FOLDER_PRODUCTION
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: "$SSH_PRODUCTION != '' && $SERVER_FOLDER_PRODUCTION != ''"
+      when: manual
+    - when: never
+
+static:html:staging:
+  <<: *clear_varnish_global
+  variables:
+    GIT_STRATEGY: none
+    SSH_SERVER: $SSH_STAGING
+    SERVER_ROOT_PATH: $SERVER_FOLDER_PREFIX_STAGING/$SERVER_FOLDER_STAGING
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: "$SSH_STAGING != '' && $SERVER_FOLDER_STAGING != ''"
+      when: manual
+    - when: never

@@ -1,0 +1,34 @@
+---
+.clear_varnish_template: &clear_varnish_global
+  stage: proxy-cache
+  needs: []
+  image: kroniak/ssh-client
+  before_script:
+    - mkdir -p ~/.ssh
+    - SANITIZED_SSH_PRIVATE_KEY=$(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
+    - SANITIZED_SSH_PUBLIC_SIGNED_KEY=$(echo "$SSH_PUBLIC_SIGNED_KEY" | tr -d '\r')
+    - cp -f $SSH_CONFIG ~/.ssh/config
+    - echo "$SANITIZED_SSH_PRIVATE_KEY" >> ~/.ssh/id_ecdsa
+    - echo "$SANITIZED_SSH_PUBLIC_SIGNED_KEY" >> ~/.ssh/id_ecdsa-signed.pub
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/*
+  script:
+    - '/bin/bash clear-varnish.sh $VARNISH_ENVIRONMENT'
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - exists: ['clear-varnish.sh']
+      when: manual
+    - when: never
+
+varnish:production:
+  <<: *clear_varnish_global
+  variables:
+    GIT_STRATEGY: fetch
+    VARNISH_ENVIRONMENT: 'production'
+
+varnish:staging:
+  <<: *clear_varnish_global
+  variables:
+    GIT_STRATEGY: fetch
+    VARNISH_ENVIRONMENT: 'staging'
