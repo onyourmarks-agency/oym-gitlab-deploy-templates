@@ -20,7 +20,7 @@ include:
   - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-proxy-cache/varnish.yml"
 
 variables:
-  SSH_STAGING: tde@server.tdebv.nl
-  SSH_PRODUCTION: tde@server.tdebv.nl
-  SERVER_FOLDER_STAGING: 'project.tld'
-  SERVER_FOLDER_PRODUCTION: 'project.tdebv.nl'
+  SSH_STAGING: "tde@server.tdebv.nl"
+  SSH_PRODUCTION: "tde@server.tdebv.nl"
+  SERVER_FOLDER_STAGING: "project.tld"
+  SERVER_FOLDER_PRODUCTION: "project.tdebv.nl"
