@@ -1,23 +1,23 @@
 ---
 include:
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/config/variables.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/config/variables.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-build/assets.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-build/vendors.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/assets.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/vendors.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-test/phpcs.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-test/eslint.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-test/prettier.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-test/stylelint.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/phpcs.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/eslint.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/prettier.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/stylelint.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-deploy/deployer.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-post-deploy/supervisord.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-post-deploy/release.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-deploy/deployer.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-post-deploy/supervisord.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-post-deploy/release.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-static-cache/static-html.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-static-cache/static-json.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-static-cache/static-html.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-static-cache/static-json.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/_deploy/stage-proxy-cache/varnish.yml"
+  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-proxy-cache/varnish.yml"
 
 variables:
   SSH_STAGING: "tde@server.tdebv.nl"
