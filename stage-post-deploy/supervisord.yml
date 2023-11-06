@@ -1,6 +1,7 @@
 ---
 .flush_supervisord_template: &flush_supervisord_global
   stage: post-deploy
+  allow_failure: false
   resource_group: supervisord
   image: kroniak/ssh-client
   variables:

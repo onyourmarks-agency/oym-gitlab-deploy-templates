@@ -3,6 +3,7 @@
   stage: deploy
   when: manual
   image: $CI_REGISTRY/tdenl/tde-public/tde-docker-deploy-image:$PHP_VERSION
+  allow_failure: false
   cache:
     - key: 'asset_build-$CI_COMMIT_REF_NAME-build'
       paths:
