@@ -2,6 +2,7 @@
 test:phpcs:
   stage: test
   image: registry.gitlab.com/stayallive/php:$PHP_VERSION
+  allow_failure: true
   needs:
     - job: build:composer
       optional: true

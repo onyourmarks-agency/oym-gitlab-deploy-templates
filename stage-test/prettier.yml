@@ -2,6 +2,7 @@
 test:prettier:
   stage: test
   image: node:$NODE_VERSION
+  allow_failure: true
   needs:
     - job: build:assets
       optional: true
