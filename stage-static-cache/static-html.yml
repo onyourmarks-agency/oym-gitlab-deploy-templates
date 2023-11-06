@@ -1,5 +1,5 @@
 ---
-.clear_varnish_template: &clear_varnish_global
+.static_html_template: &static_html_global
   stage: static-cache
   needs: []
   image: kroniak/ssh-client
@@ -16,7 +16,7 @@
     - 'ssh $SSH_SERVER "sudo -u apache /usr/bin/php -f $SERVER_ROOT_PATH/current/craft cacheable/clear/json"'
 
 static:html:production:
-  <<: *clear_varnish_global
+  <<: *static_html_global
   variables:
     GIT_STRATEGY: none
     SSH_SERVER: $SSH_PRODUCTION
@@ -29,7 +29,7 @@ static:html:production:
     - when: never
 
 static:html:staging:
-  <<: *clear_varnish_global
+  <<: *static_html_global
   variables:
     GIT_STRATEGY: none
     SSH_SERVER: $SSH_STAGING
