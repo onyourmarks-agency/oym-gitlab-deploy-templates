@@ -7,6 +7,7 @@ build:composer:
     - composer config --global --auth http-basic.tde.repo.repman.io token "$COMPOSER_REPMAN_TOKEN"
     - composer config --global github-oauth.github.com "$GITHUB_AUTH_TOKEN"
   script:
+    - '[[ ! -f composer.json ]] && exit 0'
     - COMPOSER_CACHE_DIR=composer-cache composer install --verbose --prefer-dist
       --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts
       --ignore-platform-reqs
