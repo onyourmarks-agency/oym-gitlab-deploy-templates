@@ -13,7 +13,7 @@
     - chmod 700 ~/.ssh
     - chmod 600 ~/.ssh/*
   script:
-    - 'ssh $SSH_SERVER "sudo -u apache /usr/bin/php -f $SERVER_ROOT_PATH/current/craft cacheable/clear/json"'
+    - 'ssh $SSH_SERVER "sudo -u apache /usr/bin/php -f $SERVER_ROOT_PATH/current/craft cacheable/clear/html -v"'
 
 static:html:production:
   <<: *static_html_global
