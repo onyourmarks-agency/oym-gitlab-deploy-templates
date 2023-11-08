@@ -1,0 +1,20 @@
+---
+.proxy_cloudfront_template: &proxy_cloudfront_global
+  stage: proxy-cache
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  needs: []
+  when: manual
+  script:
+    - aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION --paths \/\*
+
+cdn:invalidate:production:
+  <<: *proxy_cloudfront_global
+  variables:
+    GIT_STRATEGY: none
+    AWS_CLOUDFRONT_DISTRIBUTION: $AWS_CLOUDFRONT_DISTRIBUTION_PRODUCTION
+
+cdn:invalidate:staging:
+  <<: *proxy_cloudfront_global
+  variables:
+    GIT_STRATEGY: none
+    AWS_CLOUDFRONT_DISTRIBUTION: $AWS_CLOUDFRONT_DISTRIBUTION_STAGING
