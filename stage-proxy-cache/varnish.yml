@@ -4,14 +4,7 @@
   needs: []
   image: kroniak/ssh-client
   before_script:
-    - mkdir -p ~/.ssh
-    - SANITIZED_SSH_PRIVATE_KEY=$(echo "$SSH_PRIVATE_KEY" | tr -d '\r')
-    - SANITIZED_SSH_PUBLIC_SIGNED_KEY=$(echo "$SSH_PUBLIC_SIGNED_KEY" | tr -d '\r')
-    - cp -f $SSH_CONFIG ~/.ssh/config
-    - echo "$SANITIZED_SSH_PRIVATE_KEY" >> ~/.ssh/id_ecdsa
-    - echo "$SANITIZED_SSH_PUBLIC_SIGNED_KEY" >> ~/.ssh/id_ecdsa-signed.pub
-    - chmod 700 ~/.ssh
-    - chmod 600 ~/.ssh/*
+    - !reference [.ssh_host_connection, before_script]
   script:
     - '/bin/bash clear-varnish.sh $VARNISH_ENVIRONMENT'
   rules:
