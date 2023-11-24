@@ -33,7 +33,7 @@
     - '[[ -f $PRODUCTION_ENV_FILE ]] && sed -i "s/\$VAR_COMMIT_ID/$CI_COMMIT_SHORT_SHA/" $PRODUCTION_ENV_FILE'
     - '[[ -f $STAGING_ENV_FILE ]] && sed -i "s/\$VAR_COMMIT_ID/$CI_COMMIT_SHORT_SHA/" $STAGING_ENV_FILE'
     - '[[ -f before-deploy.sh ]] && sh before-deploy.sh $DEPLOY_ENVIRONMENT'
-    - 'dep deploy $DEPLOY_ENVIRONMENT --branch=$CI_COMMIT_REF_NAME -vvv'
+    - 'dep deploy $DEPLOY_ENVIRONMENT --branch=$CI_COMMIT_REF_NAME -v'
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
