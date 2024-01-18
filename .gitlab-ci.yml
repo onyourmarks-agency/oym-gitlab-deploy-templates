@@ -1,26 +1,26 @@
 ---
 include:
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/config/variables.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/config/variables.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/assets.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-build/vendors.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-build/assets.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-build/vendors.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/phpcs.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/eslint.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/prettier.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-test/stylelint.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/phpcs.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/eslint.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/prettier.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/stylelint.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-deploy/deployer.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-post-deploy/supervisord.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-post-deploy/release.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-deploy/deployer.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-post-deploy/supervisord.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-post-deploy/release.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-static-cache/static-html.yml"
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-static-cache/static-json.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-static-cache/static-html.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-static-cache/static-json.yml"
 
-  - "https://raw.githubusercontent.com/tdeNL/tde-gitlab-deploy-templates/master/stage-proxy-cache/varnish.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-proxy-cache/varnish.yml"
 
 variables:
-  SSH_STAGING: "tde@server.tdebv.nl"
-  SSH_PRODUCTION: "tde@server.tdebv.nl"
+  SSH_STAGING: "SERVER.instance.onyourmarks.tech"
+  SSH_PRODUCTION: "SERVER.instance.onyourmarks.tech"
   SERVER_FOLDER_STAGING: "project.tld"
-  SERVER_FOLDER_PRODUCTION: "project.tdebv.nl"
+  SERVER_FOLDER_PRODUCTION: "PROJECT.staging.SERVER.instance.onyourmarks.tech"

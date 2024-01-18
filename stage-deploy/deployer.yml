@@ -2,7 +2,7 @@
 .deploy_global_template: &deploy_global
   stage: deploy
   when: manual
-  image: $CI_REGISTRY/tdenl/tde-public/tde-docker-deploy-image:$PHP_VERSION
+  image: $CI_REGISTRY/onyourmarks/public/oym-docker-deploy-image:$PHP_VERSION
   allow_failure: false
   cache:
     - key: 'asset_build-$CI_COMMIT_REF_NAME-build'
@@ -29,6 +29,7 @@
     action: start
   before_script:
     - !reference [.ssh_host_connection, before_script]
+    - 'wget https://getcomposer.org/download/2.6.5/composer.phar'
   script:
     - '[[ -f $PRODUCTION_ENV_FILE ]] && sed -i "s/\$VAR_COMMIT_ID/$CI_COMMIT_SHORT_SHA/" $PRODUCTION_ENV_FILE'
     - '[[ -f $STAGING_ENV_FILE ]] && sed -i "s/\$VAR_COMMIT_ID/$CI_COMMIT_SHORT_SHA/" $STAGING_ENV_FILE'

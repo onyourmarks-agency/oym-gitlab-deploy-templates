@@ -2,7 +2,7 @@
 release:production:
   stage: post-deploy
   image: registry.gitlab.com/gitlab-org/release-cli:latest
-  allow_failure: false
+  allow_failure: true
   variables:
     GIT_STRATEGY: none
   needs:
