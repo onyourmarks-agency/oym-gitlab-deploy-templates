@@ -39,7 +39,6 @@ test:eslint:
         - pnpm-lock.yaml
         - webpack/*
         - webpack/**/*
-        - .gitlab-ci.yml
         - .prettier*
         - public/*
       when: on_success

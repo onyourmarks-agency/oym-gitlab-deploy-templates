@@ -1,5 +1,6 @@
 ---
 stages:
+  - "integrity"
   - "prepare"
   - "test"
   - "deploy"
@@ -139,6 +140,19 @@ variables:
     description: "Define the primary production URL without https://. Default is set to the SSH production folder"
 
 ## Common functions
+integrity:verify:
+  stage: integrity
+  needs: []
+  script:
+    - "[ ! -d $BUILD_FOLDER ] && (echo 'integrity_assets_missing' > .integrity_assets_missing)"
+    - "[ ! -d $VENDOR_FOLDER ] && (echo 'integrity_vendor_missing' > .integrity_vendor_missing)"
+  cache:
+    - key: integrity-$CI_COMMIT_REF_NAME-build-$CI_JOB_NAME
+      paths:
+        - .integrity_assets_missing
+        - .integrity_vendor_missing
+      policy: push
+      unprotect: true
 
 .ssh_host_connection:
   before_script:

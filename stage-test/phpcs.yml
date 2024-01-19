@@ -33,7 +33,6 @@ test:phpcs:
     - changes:
         - composer.json
         - composer.lock
-        - .gitlab-ci.yml
         - "**/*.php"
         - "**/*.twig"
       when: on_success

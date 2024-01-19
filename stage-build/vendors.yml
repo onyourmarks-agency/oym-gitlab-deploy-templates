@@ -2,7 +2,8 @@
 build:composer:
   stage: prepare
   image: registry.gitlab.com/stayallive/php:$PHP_VERSION
-  needs: []
+  needs:
+    - job: integrity:verify
   before_script:
     - composer config --global --auth http-basic.tde.repo.repman.io token "$COMPOSER_REPMAN_TOKEN"
     - composer config --global github-oauth.github.com "$GITHUB_AUTH_TOKEN"
@@ -25,13 +26,20 @@ build:composer:
         - $VENDOR_FOLDER
       policy: pull-push
       unprotect: true
+    - key: integrity-$CI_COMMIT_REF_NAME-build-$CI_JOB_NAME
+      paths:
+        - .integrity_vendor_missing
+      policy: pull
+      unprotect: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
       when: always
+    - exists:
+        - .integrity_vendor_missing
+      when: on_success
     - changes:
         - composer.json
         - composer.lock
-        - .gitlab-ci.yml
       when: always
