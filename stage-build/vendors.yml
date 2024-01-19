@@ -4,6 +4,7 @@ build:composer:
   image: registry.gitlab.com/stayallive/php:$PHP_VERSION
   needs:
     - job: integrity:verify
+      artifacts: true
   before_script:
     - composer config --global --auth http-basic.tde.repo.repman.io token "$COMPOSER_REPMAN_TOKEN"
     - composer config --global github-oauth.github.com "$GITHUB_AUTH_TOKEN"
@@ -25,11 +26,6 @@ build:composer:
       paths:
         - $VENDOR_FOLDER
       policy: pull-push
-      unprotect: true
-    - key: integrity-$CI_COMMIT_REF_NAME-build-$CI_JOB_NAME
-      paths:
-        - .integrity_vendor_missing
-      policy: pull
       unprotect: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'

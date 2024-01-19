@@ -146,14 +146,13 @@ integrity:verify:
   script:
     - "[ ! -d $BUILD_FOLDER ] && (echo 'integrity_assets_missing' > .integrity_assets_missing)"
     - "[ ! -d $VENDOR_FOLDER ] && (echo 'integrity_vendor_missing' > .integrity_vendor_missing)"
-  cache:
-    - key: integrity-$CI_COMMIT_REF_NAME-build-$CI_JOB_NAME
-      paths:
-        - .integrity_assets_missing
-        - .integrity_vendor_missing
-      policy: push
-      unprotect: true
-
+  artifacts:
+    name: integrity-$CI_COMMIT_REF_NAME-build-$CI_JOB_NAME
+    expire_in: 1 day
+    paths:
+      - .integrity_assets_missing
+      - .integrity_vendor_missing
+    public: false
 .ssh_host_connection:
   before_script:
     - mkdir -p ~/.ssh
