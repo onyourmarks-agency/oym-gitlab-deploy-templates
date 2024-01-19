@@ -6,6 +6,7 @@ test:phpcs:
   needs:
     - job: build:composer
       optional: true
+      artifacts: true
   before_script:
     - "COMPOSER_CACHE_DIR=composer-cache composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true"
     - "COMPOSER_CACHE_DIR=composer-cache composer global require --verbose --prefer-dist --no-progress --no-interaction slevomat/coding-standard php-parallel-lint/php-parallel-lint"

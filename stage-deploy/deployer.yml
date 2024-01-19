@@ -21,8 +21,10 @@
   needs:
     - job: build:composer
       optional: true
+      artifacts: true
     - job: build:assets
       optional: true
+      artifacts: true
   environment:
     name: $DEPLOY_ENVIRONMENT
     url: https://$PRIMARY_SITE_URL

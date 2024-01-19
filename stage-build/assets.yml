@@ -2,9 +2,7 @@
 build:assets:
   stage: prepare
   image: node:$NODE_VERSION
-  needs:
-    - job: integrity:verify
-      artifacts: true
+  needs: []
   before_script:
     - corepack enable
     - corepack prepare pnpm@$PNPM_VERSION --activate
@@ -21,23 +19,16 @@ build:assets:
       paths:
         - .pnpm-store
       unprotect: true
-    - key: asset_build-$CI_COMMIT_REF_NAME-build
-      paths:
-        - $BUILD_FOLDER
-      policy: push
-      unprotect: true
-    - key: integrity-$CI_COMMIT_REF_NAME-build-$CI_JOB_NAME
-      paths:
-        - .integrity_assets_missing
-      policy: pull
-      unprotect: true
+  artifacts:
+    name: assets-build-$CI_COMMIT_REF_NAME-build
+    expire_in: never
+    paths:
+      - pnpm-lock.yaml
+      - $BUILD_FOLDER
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
-      when: on_success
-    - exists:
-        - .integrity_assets_missing
       when: on_success
     - changes:
         - assets/*

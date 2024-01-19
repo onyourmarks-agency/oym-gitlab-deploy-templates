@@ -2,9 +2,7 @@
 build:composer:
   stage: prepare
   image: registry.gitlab.com/stayallive/php:$PHP_VERSION
-  needs:
-    - job: integrity:verify
-      artifacts: true
+  needs: []
   before_script:
     - composer config --global --auth http-basic.tde.repo.repman.io token "$COMPOSER_REPMAN_TOKEN"
     - composer config --global github-oauth.github.com "$GITHUB_AUTH_TOKEN"
@@ -13,18 +11,16 @@ build:composer:
     - COMPOSER_CACHE_DIR=composer-cache composer install --verbose --prefer-dist
       --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts
       --ignore-platform-reqs
+  artifacts:
+    name: composer-vendors-$CI_COMMIT_REF_NAME-build
+    expire_in: never
+    paths:
+      - composer.lock
+      - $VENDOR_FOLDER
   cache:
     - key: composer-package-cache
       paths:
         - composer-cache/
-      policy: pull-push
-      unprotect: true
-    - key:
-        files:
-          - composer.lock
-        prefix: composer-vendors
-      paths:
-        - $VENDOR_FOLDER
       policy: pull-push
       unprotect: true
   rules:
@@ -32,9 +28,6 @@ build:composer:
       when: never
     - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
       when: always
-    - exists:
-        - .integrity_vendor_missing
-      when: on_success
     - changes:
         - composer.json
         - composer.lock
