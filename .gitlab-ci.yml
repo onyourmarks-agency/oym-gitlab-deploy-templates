@@ -11,8 +11,8 @@ include:
   - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/stylelint.yml"
 
   - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-deploy/deployer.yml"
+  
   - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-post-deploy/supervisord.yml"
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-post-deploy/release.yml"
 
   - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-static-cache/static-html.yml"
   - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-static-cache/static-json.yml"
