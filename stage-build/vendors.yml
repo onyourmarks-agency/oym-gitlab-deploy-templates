@@ -5,7 +5,7 @@ build:composer:
   needs: []
   before_script:
     - '[[ ! -f composer.json ]] && exit 0'
-    - '[[ $BUILD_VENDORS -eq false ]] && [[ -d $VENDOR_FOLDER ]] && exit 0'
+    - '[[ ! $BUILD_VENDORS -eq true ]] && [[ -d $VENDOR_FOLDER ]] && exit 0'
     - composer config --global --auth http-basic.tde.repo.repman.io token "$COMPOSER_REPMAN_TOKEN"
     - composer config --global github-oauth.github.com "$GITHUB_AUTH_TOKEN"
   script:
@@ -45,6 +45,4 @@ build:composer:
       when: on_success
       variables:
         BUILD_VENDORS: "true"
-    - variables:
-        BUILD_VENDORS: "false"
-      when: on_success
+    - when: on_success
