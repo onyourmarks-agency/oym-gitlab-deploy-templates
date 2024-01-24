@@ -23,7 +23,7 @@ build:assets:
     - key: asset_build-$CI_COMMIT_REF_NAME-build
       paths:
         - $BUILD_FOLDER
-      policy: push
+      policy: pull-push
       unprotect: true
   artifacts:
     name: assets-build-$CI_COMMIT_REF_NAME-build
