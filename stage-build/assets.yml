@@ -5,7 +5,7 @@ build:assets:
   needs: []
   before_script:
     - '[[ ! -f package.json ]] && exit 0'
-    - '[[ ! $BUILD_ASSETS -eq true ]] && [[ -d $BUILD_FOLDER ]] && exit 0'
+    - '[[ -z $BUILD_ASSETS ]] && [[ -d $BUILD_FOLDER ]] && exit 0'
     - corepack enable
     - corepack prepare pnpm@$PNPM_VERSION --activate
     - pnpm config set store-dir .pnpm-store
