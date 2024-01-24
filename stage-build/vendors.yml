@@ -8,6 +8,7 @@ build:composer:
     - composer config --global github-oauth.github.com "$GITHUB_AUTH_TOKEN"
   script:
     - '[[ ! -f composer.json ]] && exit 0'
+    - '[[ $BUILD_VENDORS -eq false ]] && [[ -d $VENDOR_FOLDER ]] && exit 0'
     - COMPOSER_CACHE_DIR=composer-cache composer install --verbose --prefer-dist
       --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts
       --ignore-platform-reqs
@@ -23,12 +24,27 @@ build:composer:
         - composer-cache/
       policy: pull-push
       unprotect: true
+    - key:
+        files:
+          - composer.lock
+        prefix: composer-vendors
+      paths:
+        - $VENDOR_FOLDER
+      policy: pull-push
+      unprotect: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
-      when: always
+      when: on_success
+      variables:
+        BUILD_VENDORS: "true"
     - changes:
         - composer.json
         - composer.lock
-      when: always
+      when: on_success
+      variables:
+        BUILD_VENDORS: "true"
+    - variables:
+        BUILD_VENDORS: "false"
+      when: on_success

@@ -4,20 +4,6 @@
   when: manual
   image: $CI_REGISTRY/onyourmarks/public/oym-docker-deploy-image:$PHP_VERSION
   allow_failure: false
-  cache:
-    - key: 'asset_build-$CI_COMMIT_REF_NAME-build'
-      paths:
-        - $BUILD_FOLDER
-      policy: pull
-      unprotect: true
-    - key:
-        files:
-          - composer.lock
-        prefix: composer-vendors
-      paths:
-        - $VENDOR_FOLDER
-      policy: pull
-      unprotect: true
   needs:
     - job: build:composer
       optional: true

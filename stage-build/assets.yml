@@ -9,6 +9,7 @@ build:assets:
     - pnpm config set store-dir .pnpm-store
   script:
     - '[[ ! -f package.json ]] && exit 0'
+    - '[[ $BUILD_ASSETS -eq false ]] && [[ -d $BUILD_FOLDER ]] && exit 0'
     - pnpm install --frozen-lockfile
     - pnpm build
   cache:
@@ -18,6 +19,11 @@ build:assets:
         prefix: pnpm-store-$PNPM_VERSION
       paths:
         - .pnpm-store
+      unprotect: true
+    - key: asset_build-$CI_COMMIT_REF_NAME-build
+      paths:
+        - $BUILD_FOLDER
+      policy: push
       unprotect: true
   artifacts:
     name: assets-build-$CI_COMMIT_REF_NAME-build
@@ -30,6 +36,8 @@ build:assets:
       when: never
     - if: $CI_COMMIT_MESSAGE =~ /CI_BUILD/
       when: on_success
+      variables:
+        BUILD_ASSETS: "true"
     - changes:
         - assets/*
         - assets/**/*
@@ -39,4 +47,9 @@ build:assets:
         - webpack/**/*
         - .prettier*
         - public/*
+      variables:
+        BUILD_ASSETS: "true"
+      when: on_success
+    - variables:
+        BUILD_ASSETS: "false"
       when: on_success
