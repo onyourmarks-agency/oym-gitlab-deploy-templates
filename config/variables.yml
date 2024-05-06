@@ -55,15 +55,17 @@ variables:
       - "16.20.2"
 
   PHP_VERSION:
-    value: "8.2"
+    value: "8.3"
     description: "Define the PHP version"
     options:
+      - "8.3"
       - "8.2"
 
   PNPM_VERSION:
-    value: "latest-8"
+    value: "latest-9"
     description: "Define the PNPM version"
     options:
+      - "latest-9"
       - "latest-8"
       - "latest-7"
 
