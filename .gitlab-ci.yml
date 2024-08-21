@@ -1,23 +1,22 @@
 ---
 include:
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/config/variables.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/config/variables.yml"
 
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-build/assets.yml"
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-build/vendors.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-build/assets.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-build/vendors.yml"
 
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/phpcs.yml"
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/eslint.yml"
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/prettier.yml"
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-test/stylelint.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-test/phpcs.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-test/eslint.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-test/prettier.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-test/stylelint.yml"
 
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-deploy/deployer.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-deploy/deployer.yml"
   
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-post-deploy/supervisord.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-post-deploy/supervisord.yml"
 
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-static-cache/static-html.yml"
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-static-cache/static-json.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-static-cache/static-flush.yml"
 
-  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/master/stage-proxy-cache/varnish.yml"
+  - "https://raw.githubusercontent.com/onyourmarks-agency/oym-gitlab-deploy-templates/main/stage-proxy-cache/varnish.yml"
 
 variables:
   SSH_STAGING: "SERVER.instance.onyourmarks.tech"
