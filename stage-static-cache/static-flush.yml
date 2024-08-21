@@ -1,15 +1,15 @@
 ---
-.static_json_template: &static_json_global
+.static_flush_template: &static_flush_global
   stage: static-cache
   needs: []
   image: kroniak/ssh-client
   before_script:
     - !reference [.ssh_host_connection, before_script]
   script:
-    - 'ssh $SSH_SERVER "sudo -u apache /usr/bin/php -f $SERVER_ROOT_PATH/current/craft cacheable/clear/json --reload-elements -v"'
+    - 'ssh $SSH_SERVER "sudo -u apache /usr/bin/php -f $SERVER_ROOT_PATH/current/craft cacheable/flush/config --executeImmediately"'
 
-static:json:production:
-  <<: *static_json_global
+static:flush:production:
+  <<: *static_flush_global
   variables:
     GIT_STRATEGY: none
     SSH_SERVER: $SSH_PRODUCTION
@@ -21,8 +21,8 @@ static:json:production:
       when: manual
     - when: never
 
-static:json:staging:
-  <<: *static_json_global
+static:flush:staging:
+  <<: *static_flush_global
   variables:
     GIT_STRATEGY: none
     SSH_SERVER: $SSH_STAGING
