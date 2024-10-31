@@ -47,9 +47,10 @@ variables:
 
   # Versioning
   NODE_VERSION:
-    value: "20.8.1"
+    value: "22.11.0"
     description: "Define the node version"
     options:
+      - "22.11.0"
       - "20.8.1"
       - "18.17.1"
       - "16.20.2"
