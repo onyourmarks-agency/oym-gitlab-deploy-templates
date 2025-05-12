@@ -1,0 +1,32 @@
+---
+.reload_varnishconfig_template: &reload_varnishconfig_global
+  stage: post-deploy
+  allow_failure: false
+  resource_group: supervisord
+  image: kroniak/ssh-client
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - !reference [.ssh_host_connection, before_script]
+  script:
+    - 'ssh $SSH_SERVER "sudo /etc/varnish/varnish-reload.sh"'
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - when: on_success
+
+varnishconfig:staging:
+  <<: *reload_varnishconfig_global
+  variables:
+    SSH_SERVER: $SSH_STAGING
+    GIT_STRATEGY: none
+  needs:
+    - job: deploy:staging
+
+varnishconfig:production:
+  <<: *reload_varnishconfig_global
+  variables:
+    SSH_SERVER: $SSH_PRODUCTION
+    GIT_STRATEGY: none
+  needs:
+    - job: deploy:production
